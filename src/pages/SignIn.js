@@ -1,17 +1,37 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FormsSign, LeftSide, RightSide, SignStyled } from "../assets/SignStyles";
 import { BASE_URL } from "../constants/url";
 import { ThreeDots } from 'react-loader-spinner'
+import Swal from "sweetalert2";
 
 export default function SignIn() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [loading, setLoading] = useState(false)
+    const navigate = useNavigate()
+    function errors(error){
+        console.log(error)
+        if(error.status === 401){
+            Swal.fire({
+                icon:"error",
+                title: error.data.message
+            }) 
+        }if(error.status === 422){
+            Swal.fire({
+                icon:"error",
+                title: error.data.message.join(', ')
+            }) 
+        }else{
+            Swal.fire({
+                icon:"error",
+                title: error.data.message
+            })
+        }
+    }
 
     function logIn(e) {
-        console.log('a')
         e.preventDefault()
         setLoading(true)
 
@@ -21,10 +41,15 @@ export default function SignIn() {
             const body = { email, password }
             const promisse = axios.post(url, body)
             promisse
-                .then(res => { setLoading(false); console.log(res) })
-                .catch(err => { setLoading(false); console.log(err) })
-        } else {
-            alert('nao')
+                .then(res => { 
+                    setLoading(false)
+                    localStorage.setItem('token',res.data.token)
+                    navigate("/timeline") 
+                })
+                .catch(err => { 
+                    errors(err.response)
+                    setLoading(false)
+                })
         }
     }
     return (
