@@ -10,6 +10,9 @@ export const SignStyled = styled.div`
         font-weight: 400;
         font-size: 20px;
         color: #FFFFFF;
+    }
+    @media (max-width: 414px) {
+        flex-direction: column;
     }   
 `
 
@@ -29,6 +32,21 @@ export const LeftSide = styled.div`
         font-weight: 700;
         font-size: 43px;
     }
+    @media (max-width: 414px) {
+        width: 100%;
+        height: 175px;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        h1{
+           font-size: 76px; 
+        }
+        p{
+            font-size:23px ;
+        }
+    }   
 `
 
 export const RightSide = styled.div`
