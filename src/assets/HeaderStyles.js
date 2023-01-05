@@ -96,13 +96,14 @@ export const StyledImageDiv = styled.div`
 `
 export const Overlay = styled.div`
     position: fixed;
-    background-color: rgba(0,0,0,0.2);
-    z-index: 1;
+    background-color: rgba(0,0,0,0.5);
     top:0;
     bottom: 0;
     right: 0;
     left: 0;
+    z-index: 1;
     div{
+       
         display: flex;
         align-items: center;
         justify-content: center;
@@ -119,6 +120,7 @@ export const Overlay = styled.div`
         font-weight: 700;
         font-size: 17px;
         color: #FFFFFF;
+
         :hover{
             cursor: pointer;
         }

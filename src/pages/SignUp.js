@@ -5,7 +5,6 @@ import Swal from "sweetalert2";
 import withReactContent from 'sweetalert2-react-content';
 import { FormsSign, LeftSide, RightSide, SignStyled, PopUp} from "../assets/SignStyles";
 import { ThreeDots } from 'react-loader-spinner';
-import { BASE_URL } from "../constants/url";
 
 export default function SignUp() {
     const [email, setEmail] = useState('')
@@ -48,7 +47,7 @@ export default function SignUp() {
     function signUp(e) {
         setLoading(true)
         e.preventDefault()
-        const URL = `${BASE_URL}/signup`
+        const URL = `${process.env.REACT_APP_URL_API}/signup`
         const body = { email, password, name, image }
         const promisse = axios.post(URL, body)
         promisse

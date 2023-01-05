@@ -11,6 +11,7 @@ export const StyledSearchTimeline = styled.div`
     position: relative;
     margin: 10px 0 0 0;
     padding: 0 15px;
+    z-index: 1;
     svg{
         position: absolute;
         top: 8px;

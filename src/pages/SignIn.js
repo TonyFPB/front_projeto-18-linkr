@@ -2,7 +2,6 @@ import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FormsSign, LeftSide, PopUp, RightSide, SignStyled } from "../assets/SignStyles";
-import { BASE_URL } from "../constants/url";
 import { ThreeDots } from 'react-loader-spinner';
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
@@ -39,7 +38,7 @@ export default function SignIn() {
         setLoading(true)
 
         if (email && password) {
-            const url = `${BASE_URL}/signin`
+            const url = `${process.env.REACT_APP_URL_API}/signin`
             const body = { email, password }
             const promisse = axios.post(url, body)
             promisse
