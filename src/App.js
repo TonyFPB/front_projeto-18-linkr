@@ -4,7 +4,6 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Timeline from "./pages/Timeline";
 
-
 function App() {
   return (
     <BrowserRouter>
