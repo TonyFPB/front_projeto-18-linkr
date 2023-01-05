@@ -55,6 +55,9 @@ export const RightSide = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    @media (max-width: 414px) {
+        width: 100%;
+    }
 `
 export const FormsSign = styled.form`
     display: flex;
@@ -97,6 +100,20 @@ export const FormsSign = styled.form`
         font-weight: 700;
         font-size: 27px;
         color: #FFFFFF;
+    }
+    @media (max-width: 414px) {
+        margin: 40px 0 0 0;
+        input{
+            height: 55px;
+            font-size: 22px;
+            ::placeholder{
+                font-size: 22px;
+            }
+        }
+        button{
+            height: 55px;
+            font-size: 22px;
+        }
     }
 `
 export const PopUp = styled.h1`
