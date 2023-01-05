@@ -48,7 +48,6 @@ export const FormsSign = styled.form`
         height: 65px;
         border-radius: 6px;
         margin: 0 0 14px 0;
-        color: #9F9F9F;
         
         font-family: 'Oswald';
         font-style: normal;
@@ -81,4 +80,10 @@ export const FormsSign = styled.form`
         font-size: 27px;
         color: #FFFFFF;
     }
+`
+export const PopUp = styled.h1`
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 700;
+    color: #FFFFFF;
 `
