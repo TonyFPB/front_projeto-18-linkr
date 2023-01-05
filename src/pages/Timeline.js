@@ -1,13 +1,17 @@
 import Header from "../components/Header";
-import { StyledTimeline } from "../assets/TimelineStyles";
-import { useState } from "react";
+import { StyledSearchTimeline, StyledTimeline } from "../assets/TimelineStyles";
+import { AiOutlineSearch } from 'react-icons/ai'
 export default function Timeline() {
-    
+
     return (
         <>
-            <Header/>
+            <Header />
             <StyledTimeline>
-                asdasdasd
+                <StyledSearchTimeline>
+                    <AiOutlineSearch />
+                    <input placeholder="Search for people" />
+                </StyledSearchTimeline>
+                
             </StyledTimeline>
         </>
     )

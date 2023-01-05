@@ -19,6 +19,11 @@ export const StyledHeader = styled.div`
         font-weight: 700;
         font-size: 49px;
     }
+    @media (max-width: 600px) {
+        p{
+            font-size: 45px;
+        }
+    }
 `
 
 export const StyledSearch = styled.div`
@@ -52,6 +57,9 @@ export const StyledSearch = styled.div`
             color: #C6C6C6;
         }
     }
+    @media (max-width: 896px){
+        display: none;
+    }
 `
 
 export const StyledImageDiv = styled.div`
@@ -75,7 +83,16 @@ export const StyledImageDiv = styled.div`
             cursor: pointer;
         }
     }
-    
+    @media (max-width: 896px){
+        img{
+            width: 41px;
+            height: 41px;
+            margin: 0 0 0 8px;
+        }
+        svg{
+            font-size: 30px;
+        }
+    }
 `
 export const Overlay = styled.div`
     position: fixed;
