@@ -11,7 +11,7 @@ export const SignStyled = styled.div`
         font-size: 20px;
         color: #FFFFFF;
     }
-    @media (max-width: 414px) {
+    @media (max-width: 896px) {
         flex-direction: column;
     }   
 `
@@ -32,7 +32,7 @@ export const LeftSide = styled.div`
         font-weight: 700;
         font-size: 43px;
     }
-    @media (max-width: 414px) {
+    @media (max-width: 896px) {
         width: 100%;
         height: 175px;
         padding: 0;
@@ -55,7 +55,7 @@ export const RightSide = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    @media (max-width: 414px) {
+    @media (max-width: 896px) {
         width: 100%;
     }
 `
@@ -101,7 +101,7 @@ export const FormsSign = styled.form`
         font-size: 27px;
         color: #FFFFFF;
     }
-    @media (max-width: 414px) {
+    @media (max-width: 896px) {
         margin: 40px 0 0 0;
         input{
             height: 55px;
