@@ -10,6 +10,9 @@ export const SignStyled = styled.div`
         font-weight: 400;
         font-size: 20px;
         color: #FFFFFF;
+    }
+    @media (max-width: 896px) {
+        flex-direction: column;
     }   
 `
 
@@ -29,6 +32,21 @@ export const LeftSide = styled.div`
         font-weight: 700;
         font-size: 43px;
     }
+    @media (max-width: 896px) {
+        width: 100%;
+        height: 175px;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        h1{
+           font-size: 76px; 
+        }
+        p{
+            font-size:23px ;
+        }
+    }   
 `
 
 export const RightSide = styled.div`
@@ -37,6 +55,9 @@ export const RightSide = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    @media (max-width: 896px) {
+        width: 100%;
+    }
 `
 export const FormsSign = styled.form`
     display: flex;
@@ -48,7 +69,6 @@ export const FormsSign = styled.form`
         height: 65px;
         border-radius: 6px;
         margin: 0 0 14px 0;
-        color: #9F9F9F;
         
         font-family: 'Oswald';
         font-style: normal;
@@ -81,4 +101,24 @@ export const FormsSign = styled.form`
         font-size: 27px;
         color: #FFFFFF;
     }
+    @media (max-width: 896px) {
+        margin: 40px 0 0 0;
+        input{
+            height: 55px;
+            font-size: 22px;
+            ::placeholder{
+                font-size: 22px;
+            }
+        }
+        button{
+            height: 55px;
+            font-size: 22px;
+        }
+    }
+`
+export const PopUp = styled.h1`
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 700;
+    color: #FFFFFF;
 `
