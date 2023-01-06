@@ -1,15 +1,50 @@
+import { useState } from "react"
 import styled from "styled-components"
 
 export default function NewPostCard () {
+    const [loading, setLoading] = useState(false)
+    const [post, setPost] = useState({
+        url: "",
+        message: ""
+    })
+
+    const [erro, setErro] = useState({
+        placeholder1: "http://..." ,
+        placeholder2: "Awesome article about #JavaScript",
+        border: "none"
+    })
+
+    function postar (event) {
+        event.preventDefault()
+
+        if (post.url === "") return setErro({
+            placeholder1: "Insert a valid url",
+            placeholder2: "",
+            border: "solid 2px rgba(255,0,0, 0.4)" 
+        })
+
+        setLoading(true)
+    }
+
     return (
         <Card>
             <Img src="https://www.petz.com.br/blog/wp-content/uploads/2021/11/enxoval-para-gato-Copia.jpg" alt="user icon"/>
             <div>
                 <Text>What are you going to share today?</Text>
-                <Forms>
-                    <Input placeholder="http://..."/>
-                    <Textarea placeholder="Awesome article about #javascript"/>
-                    <div><Button>Publish</Button></div>
+                <Forms onSubmit={postar}>
+
+                    <Input placeholder={erro.placeholder1} border={erro.border}
+                    type="url" value={post.url} disabled={loading}
+                    onChange={(e) => {setPost({...post, url: e.target.value}); setErro(false)}}/>
+
+                    <Textarea placeholder={erro.placeholder2} border={erro.border}
+                    type="text" value={post.message} disabled={loading}
+                    onChange={(e) => setPost({...post, message: e.target.value})}/>
+
+                    <div><Button disabled={loading}>
+                        {loading ? "Publishing..." : "Publish"}
+                    </Button></div>
+
                 </Forms>
             </div>
         </Card>
@@ -66,7 +101,7 @@ const Input = styled.input`
     width: 100%;
     border-radius: 5px;
     background-color: #EFEFEF;
-    border: none;
+    border: ${porps => porps.border};
 
     padding-left: 12px;
 
@@ -85,7 +120,7 @@ const Textarea = styled.textarea`
     resize: none;
     border-radius: 5px;
     background-color: #EFEFEF;
-    border: none;
+    border: ${porps => porps.border};
 
     padding-left: 12px;
     padding-top: 8px;
@@ -113,5 +148,5 @@ const Button = styled.button`
     letter-spacing: 0em;
     color: #fff;
 
-    cursor: pointer;
+    cursor: ${props => props.disabled ? "hover" : "pointer"};
 `
