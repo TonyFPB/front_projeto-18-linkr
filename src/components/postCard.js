@@ -1,24 +1,27 @@
 import styled from "styled-components"
 
-export default function PostCard () {
+export default function PostCard ({data}) {
+    const {id, owner, image, name, message, url, metadata} = data
+
     return (
         <Card>
-            <Img src="https://www.petz.com.br/blog/wp-content/uploads/2021/11/enxoval-para-gato-Copia.jpg" alt="user icon"/>
+            <Img src={image} alt="user icon"/>
             <div className="div">
-                <Name>Gatinho programador</Name>
-                <Message>Muito maneiro esse tutorial de Material UI com React, deem uma olhada!</Message>
-                <Url href="https://medium.com/@pshrmn/a-simple-react-router" target="_blank" rel="noopener noreferrer">
+                <Name>{name}</Name>
+                <Message>{message}</Message>
+                <Url href={url} target="_blank" rel="noopener noreferrer">
                     <div>
-                        <UrlTitle>Como aplicar o Material UI em um projeto React</UrlTitle>
-                        <UrlContent>Hey! I have moved this tutorial to my personal blog. Same content, new location. Sorry about making you click through to another page.</UrlContent>
-                        <UrlFotmat>https://medium.com/@pshrmn/a-simple-react-router</UrlFotmat>
+                        <UrlTitle>{metadata.title}</UrlTitle>
+                        <UrlContent>{metadata.description}</UrlContent>
+                        <UrlFotmat>{url}</UrlFotmat>
                     </div>
-                    <UrlImg src="https://pixlr.com/images/index/remove-bg.webp" alt="url image"/>
+                    <UrlImg src={metadata.image} alt="url image"/>
                 </Url>
             </div>
         </Card>
     )
 }
+
 
 const Card = styled.div`
     height: 276px;
