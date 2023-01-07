@@ -6,6 +6,7 @@ import Timeline from "./pages/Timeline";
 
 
 function App() {
+  console.log("teste")
   return (
     <BrowserRouter>
       <GlobalStyle />
