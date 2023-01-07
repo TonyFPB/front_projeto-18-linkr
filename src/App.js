@@ -7,6 +7,7 @@ import Trending from "./pages/Trending/Trending";
 
 
 function App() {
+  console.log("teste")
   return (
     <BrowserRouter>
       <GlobalStyle />
