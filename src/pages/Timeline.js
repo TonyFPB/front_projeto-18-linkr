@@ -5,7 +5,6 @@ import { AiOutlineSearch } from 'react-icons/ai'
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-
 export default function Timeline() {
     const [hide,setHide] = useState(true)
     const navigate = useNavigate()

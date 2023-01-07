@@ -1,10 +1,11 @@
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FormsSign, LeftSide, PopUp, RightSide, SignStyled } from "../assets/SignStyles";
 import { ThreeDots } from 'react-loader-spinner';
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import UserContext from "../contexts/UserContext";
 
 export default function SignIn() {
     const [email, setEmail] = useState('')
@@ -12,7 +13,7 @@ export default function SignIn() {
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
     const swal = withReactContent(Swal)
-
+    const { setUser } = useContext(UserContext)
     function errors(error){
         if(error.status === 401){
             swal.fire({
@@ -41,10 +42,12 @@ export default function SignIn() {
             const url = `${process.env.REACT_APP_URL_API}/signin`
             const body = { email, password }
             const promisse = axios.post(url, body)
+            
             promisse
                 .then(res => { 
                     setLoading(false)
                     localStorage.setItem('token',res.data.token)
+                    setUser(res.data.token)
                     navigate("/timeline") 
                 })
                 .catch(err => { 

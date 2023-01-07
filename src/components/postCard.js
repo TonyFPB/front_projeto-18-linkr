@@ -1,11 +1,54 @@
-import styled from "styled-components"
+import styled from "styled-components";
+import ReactTooltip from "react-tooltip";
+import { useContext, useEffect, useState } from "react";
+import { BsFillHeartFill } from "react-icons/bs";
+import { BsHeart } from "react-icons/bs";
+import axios from "axios";
+import UserContext from "../contexts/UserContext";
 
-export default function PostCard ({data}) {
-    const {id, owner, image, name, message, url, metadata} = data
+export default function PostCard({ data }) {
+    console.log(data)
+    const { id, owner, image, name, message, url, metadata } = data
+    const [like, setLike] = useState(true);
+    const { user } = useContext(UserContext)
 
+    const config = {
+        headers: {
+            Authorization: `Bearer ${user}`
+        }
+    }
+
+    function getAllLikes() {
+
+        axios.get(`${process.env.REACT_APP_URL_API}/likes/${id}`, config)
+            .then(res => {
+                ReactTooltip.rebuild();
+                setLike(res.data)
+            })
+    }
+
+    useEffect(() => {
+        getAllLikes()
+    }, [])
+
+    function likeAndDislikePost() {
+        if (!like) {
+            axios.post(`${process.env.REACT_APP_URL_API}/likes/}${id}`, { post_id: id }, config).then(res => getAllLikes()).catch(() => "Ação indisponível, por favor tente novamente!")
+        }
+        axios.delete(`${process.env.REACT_APP_URL_API}/likes/}${id}`, config).then(res => getAllLikes()).catch(() => "Ação indisponível, por favor tente novamente!")
+    }
     return (
         <Card>
-            <Img src={image} alt="user icon"/>
+            <Img src={image} alt="user icon" />
+
+            {
+                like
+                    ?
+                    <BsFillHeartFill onClick={likeAndDislikePost} />
+                    :
+                    <BsHeart onClick={likeAndDislikePost} />
+            }
+
             <div className="div">
                 <Name>{name}</Name>
                 <Message>{message}</Message>
@@ -15,13 +58,12 @@ export default function PostCard ({data}) {
                         <UrlContent>{metadata.description}</UrlContent>
                         <UrlFotmat>{url}</UrlFotmat>
                     </div>
-                    <UrlImg src={metadata.image} alt="url image"/>
+                    <UrlImg src={metadata.image} alt="url image" />
                 </Url>
             </div>
         </Card>
     )
 }
-
 
 const Card = styled.div`
     height: 276px;
