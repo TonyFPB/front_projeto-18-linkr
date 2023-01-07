@@ -45,11 +45,6 @@ export default function SignIn() {
     setLoading(true);
 
     if (email && password) {
-      console.log(
-        "process.env.REACT_APP_URL_API",
-        process.env.REACT_APP_URL_API
-      );
-     
       const url = `${process.env.REACT_APP_URL_API}/signin`;
       const body = { email, password };
       const promisse = axios.post(url, body);
@@ -58,7 +53,6 @@ export default function SignIn() {
           setLoading(false);
           localStorage.setItem("token", res.data.token);
           navigate("/timeline");
-          
         })
         .catch((err) => {
           errors(err.response);
