@@ -5,7 +5,7 @@ import Trendings from "./HahstagTrendings"
 
 export default function Trending(){
     const [hashtags,setHashtags] = useState([])
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNjcyOTQxODM0LCJleHAiOjE2NzMwMjgyMzR9.OoIG7O9oUbk0__Y_-bZpoFKXMZmEEKjEtCcyZR54SuI"
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNjczMTExODEzLCJleHAiOjE2NzMxOTgyMTN9.0iVlgN87Gn85t_1aVOvAiuS12ZIOHZZv2pPzZCmYXrw"
     const config = {
         headers: {
             Authorization: `Bearer ${token}`

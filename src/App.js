@@ -3,7 +3,8 @@ import GlobalStyle from "./assets/GlobalStyle";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Timeline from "./pages/Timeline";
-import Trending from "./pages/Trending/Trending";
+import Trending from "./components/Trending/Trending";
+import HashtagPage from "./pages/HashtagPage/HashtagPage";
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/timeline" element={<Timeline/>}/>
         <Route path="/trendings" element={<Trending/>}/>
+        <Route path="/hashtag/:hashtag" element={<HashtagPage/>}/>
       </Routes>
     </BrowserRouter>
   );
