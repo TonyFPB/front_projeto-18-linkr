@@ -28,6 +28,7 @@ export default function Timeline() {
                         <div onClick={logOut}>Logout</div> 
                     </Overlay>
                 }
+                
             </StyledTimeline>
         </>
     )
