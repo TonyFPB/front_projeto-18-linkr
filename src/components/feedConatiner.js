@@ -32,7 +32,7 @@ export default function FeedContainer () {
             <Title>timeline</Title>
             <NewPostCard timeline={timeline}/>
             <Container>
-                {data ? data.length === 0 ? <Message><p>There are no posts yet</p></Message> : data.map(data => <PostCard data={data} key={data.id}/>) 
+                {data ? data.length === 0 ? <Message><p>There are no posts yet</p></Message> : data.map(data => <PostCard data={data} key={data.id} timeline={timeline}/>) 
                 : erro ? <Message><p>An error occured while trying to fetch the posts, please refresh the page</p></Message>  : <Message><p>Loading...</p></Message> }
             </Container>
         </Feed>
