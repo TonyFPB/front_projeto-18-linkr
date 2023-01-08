@@ -1,6 +1,6 @@
 import styled from "styled-components"
-import ReactHashtag from "@mdnm/react-hashtag";
 import { useNavigate } from "react-router-dom";
+import { ReactTagify } from "react-tagify";
 
 
 export default function PostCard ({data}) {
@@ -8,11 +8,26 @@ export default function PostCard ({data}) {
     const navigate = useNavigate()
 
     return (
+        // <Card>
+        //     <Img src={image} alt="user icon"/>
+        //     <div className="div">
+        //         <Name>{name}</Name>
+        //         <Message><ReactHashtag onHashtagClick={hashtag=> navigate(()=> `/hashtag/${hashtag.replace("#","")}`)}>{message}</ReactHashtag></Message>
+        //         <Url href={url} target="_blank" rel="noopener noreferrer">
+        //             <div>
+        //                 <UrlTitle>{metadata.title}</UrlTitle>
+        //                 <UrlContent>{metadata.description}</UrlContent>
+        //                 <UrlFotmat>{url}</UrlFotmat>
+        //             </div>
+        //             <UrlImg src={metadata.image} alt="url image"/>
+        //         </Url>
+        //     </div>
+        // </Card>
         <Card>
             <Img src={image} alt="user icon"/>
             <div className="div">
                 <Name>{name}</Name>
-                <Message><ReactHashtag onHashtagClick={hashtag=> navigate(()=> `/hashtag/${hashtag.replace("#","")}`)}>{message}</ReactHashtag></Message>
+                <ReactTagify colors={'#fff'} tagClicked={hashtag=> navigate(()=> `/hashtag/${hashtag.replace("#","")}`)}><Message>{message}</Message></ReactTagify>
                 <Url href={url} target="_blank" rel="noopener noreferrer">
                     <div>
                         <UrlTitle>{metadata.title}</UrlTitle>
@@ -72,12 +87,6 @@ const Message = styled.p`
     height: 52px;
     width: 502px;
     margin: 7px 0;
-
-    span{
-        font-weight: 700;
-        color: #fff;
-        cursor: pointer;
-    }
 `
 const Url = styled.a`
     height: 155px;

@@ -1,13 +1,13 @@
 import styled from "styled-components"
-import ReactHashtag from "@mdnm/react-hashtag";
 import { useNavigate } from "react-router-dom";
+import { ReactTagify } from "react-tagify";
 
 export default function Trendings({hashtag}){
     
     const navigate = useNavigate()
 
     return(
-        <Hashtag><ReactHashtag onHashtagClick={hashtag=> navigate(`/hashtag/${hashtag.replace("#","")}`)}>{`#${hashtag}`}</ReactHashtag></Hashtag>
+        <ReactTagify colors="#fff" tagClicked={hashtag=> navigate(`/hashtag/${hashtag.replace("#","")}`)}><Hashtag>{`#${hashtag}`}</Hashtag></ReactTagify>
     )
 }
 
@@ -17,7 +17,4 @@ const Hashtag = styled.div`
     font-size: 19px;
     font-weight: 700;
     margin-bottom: 11px;
-    span{
-        cursor: pointer;
-    }
 `
