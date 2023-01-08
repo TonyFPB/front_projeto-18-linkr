@@ -1,14 +1,115 @@
 import styled from "styled-components"
+import {FaPencilAlt, FaTrashAlt} from "react-icons/fa"
+import Modal from "react-modal"
+import {useRef, useState } from "react"
+import axios from "axios";
+import Swal from "sweetalert2";
 
-export default function PostCard ({data}) {
+const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+      height: "262px",
+      width: "597px",
+      borderRadius: "50px",
+      backgroundColor: "#333333"
+    },
+  };
+
+function getheader() {
+    const header = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    };
+    return header;
+  }
+
+export default function PostCard ({data, timeline}) {
     const {id, owner, image, name, message, url, metadata} = data
+    
+    const [modal, setModal] = useState(false)
+    const [modalLoad, setModalLoad] = useState(false)
+   
+    const [edit, setEdit] = useState(false)
+    const [msg, setMsg] = useState(message)
+    const [newMsg, setNewMsg] = useState(msg)
+    const [editLoad, setEditLoad] = useState(false)
+    const newInput = useRef()
+
+    const header = getheader();
+    const config = { headers: header };
+    const axiosUrl = `${process.env.REACT_APP_URL_API}/post/${id}`
+
+    function toUpdate (e) {
+        if (e.keyCode === 27) {setNewMsg(msg); return setEdit(false)}
+        if (e.key === "Enter") {
+            setEditLoad(true)
+
+            const promisse = axios.put(axiosUrl, {url,  message: newMsg}, config)
+            promisse.then(() => {setMsg(newMsg);setEdit(false);setEditLoad(false)})
+            promisse.catch(() => {Swal.fire({
+                title: 'Error!',
+                text: 'Something went wrong, try again!',
+                icon: 'error',
+                confirmButtonText: 'Ok!'
+              }); setEditLoad(false)})
+        }
+    }
+
+    function toDelete () {
+        setModalLoad(true)
+
+        const promisse = axios.delete(axiosUrl, config)
+        promisse.then(() => {setModal(false); timeline()})
+        promisse.catch(() => {Swal.fire(
+            'Ops :/',
+            'Something went wrong, try again!',
+            'error'
+          ); setModalLoad(false)})
+    }
 
     return (
         <Card>
+            <Modal 
+                isOpen={modal}
+                onRequestClose={() => setModal(false)}
+                style={customStyles}
+            >
+                <ModalStyled>
+                    {modalLoad ? <p>Loading...</p> :
+                        <>
+                            <p>Are you sure you want to delete this post?</p>
+                            <div>
+                                <button className="no" 
+                                onClick={() => setModal(false)}>No, go back.</button>
+
+                                <button onClick={toDelete}>Yes, delete it.</button>
+                            </div>
+                        </>
+                    }
+                </ModalStyled>
+
+            </Modal>
+
             <Img src={image} alt="user icon"/>
             <div className="div">
-                <Name>{name}</Name>
-                <Message>{message}</Message>
+                <Top>
+                    <Name>{name}</Name>
+                    {owner ? 
+                        <div>
+                            <FaPencilAlt className="icon" color={"#fff"} size={18} disabled={editLoad}
+                            onClick={() => {if(editLoad) return ;setNewMsg(msg);setEdit(!edit)}}/>
+                            <FaTrashAlt className="icon" color={"#fff"} size={18} onClick={() => setModal(true)}/>
+                        </div> : <></>
+                    }
+                </Top>
+                {edit? <NewInput ref={newInput} value={newMsg} disabled={editLoad}
+                onChange={(e) => setNewMsg(e.target.value)} onKeyDown={toUpdate}/> 
+                : <Message>{msg}</Message>}
                 <Url href={url} target="_blank" rel="noopener noreferrer">
                     <div>
                         <UrlTitle>{metadata.title}</UrlTitle>
@@ -37,6 +138,13 @@ const Card = styled.div`
         height: 100%;
         padding: 15px;
     }
+
+    .modal {
+        height: 262px;
+        width: 597px;
+        border-radius: 50px;
+
+    } 
 `
 const Img = styled.img`
     width: 50px;
@@ -131,4 +239,95 @@ const UrlFotmat = styled.p`
 const UrlImg = styled.img`
     height: 155px;
     width: 153.44039916992188px;
+`
+const Top = styled.div`
+    width: 503px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    div {
+        display: flex;
+        gap: 12px;
+        
+        .icon {
+            cursor: pointer;
+        }
+    }
+`
+const ModalStyled = styled.div`
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+
+    p {
+        font-family: Lato;
+        font-size: 30px;
+        font-weight: 700;
+        line-height: 40.8px;
+        letter-spacing: 0em;
+        text-align: center;
+        color: #FFFFFF;
+
+        display: block;
+        height: 82px;
+        width: 338px;
+    }
+
+    div {
+        display: flex;
+        gap: 30px;
+    }
+
+    div button{
+        height: 37px;
+        width: 134px;
+        border-radius: 5px;
+        border: none;
+        background-color: #1877F2;
+
+        font-family: Lato;
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 22px;
+        letter-spacing: 0em;
+        text-align: center;
+        color:#FFFFFF;
+
+        cursor: pointer;
+    }
+
+    div .no {
+        background-color: #FFFFFF;
+        color: #1877F2;
+    }
+`
+const NewInput = styled.textarea`
+    height: 44px;
+    width: 503px;
+    border-radius: 7px;
+    resize: none;
+    background-color: #EFEFEF;
+    border: none;
+
+    padding-left: 12px;
+
+    margin-top: 7px;
+    margin-bottom: 8px;
+
+    font-family: Lato;
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 18px;
+    letter-spacing: 0em;
+    text-align: left;
+
+    box-sizing: border-box;
+
+    cursor: ${props => props.disabled ? "wait" : "text"}
 `
