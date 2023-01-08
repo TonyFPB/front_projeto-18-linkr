@@ -1,8 +1,9 @@
 import styled from "styled-components"
 import {FaPencilAlt, FaTrashAlt} from "react-icons/fa"
 import Modal from "react-modal"
-import { useState } from "react"
+import {useRef, useState } from "react"
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const customStyles = {
     content: {
@@ -29,20 +30,46 @@ function getheader() {
 
 export default function PostCard ({data, timeline}) {
     const {id, owner, image, name, message, url, metadata} = data
+    
     const [modal, setModal] = useState(false)
     const [modalLoad, setModalLoad] = useState(false)
+   
+    const [edit, setEdit] = useState(false)
+    const [msg, setMsg] = useState(message)
+    const [newMsg, setNewMsg] = useState(msg)
+    const [editLoad, setEditLoad] = useState(false)
+    const newInput = useRef()
 
     const header = getheader();
     const config = { headers: header };
     const axiosUrl = `${process.env.REACT_APP_URL_API}/post/${id}`
 
+    function toUpdate (e) {
+        if (e.keyCode === 27) {setNewMsg(msg); return setEdit(false)}
+        if (e.key === "Enter") {
+            setEditLoad(true)
+
+            const promisse = axios.put(axiosUrl, {url,  message: newMsg}, config)
+            promisse.then(() => {setMsg(newMsg);setEdit(false);setEditLoad(false)})
+            promisse.catch(() => {Swal.fire({
+                title: 'Error!',
+                text: 'Something went wrong, try again!',
+                icon: 'error',
+                confirmButtonText: 'Ok!'
+              }); setEditLoad(false)})
+        }
+    }
 
     function toDelete () {
         setModalLoad(true)
 
         const promisse = axios.delete(axiosUrl, config)
         promisse.then(() => {setModal(false); timeline()})
-        promisse.catch(erro => console.log(erro.response.data))
+        promisse.catch(() => {Swal.fire(
+            'Ops :/',
+            'Something went wrong, try again!',
+            'error'
+          ); setModalLoad(false)})
     }
 
     return (
@@ -74,12 +101,15 @@ export default function PostCard ({data, timeline}) {
                     <Name>{name}</Name>
                     {owner ? 
                         <div>
-                            <FaPencilAlt className="icon" color={"#fff"} size={18}/>
+                            <FaPencilAlt className="icon" color={"#fff"} size={18} disabled={editLoad}
+                            onClick={() => {if(editLoad) return ;setNewMsg(msg);setEdit(!edit)}}/>
                             <FaTrashAlt className="icon" color={"#fff"} size={18} onClick={() => setModal(true)}/>
                         </div> : <></>
                     }
                 </Top>
-                <Message>{message}</Message>
+                {edit? <NewInput ref={newInput} value={newMsg} disabled={editLoad}
+                onChange={(e) => setNewMsg(e.target.value)} onKeyDown={toUpdate}/> 
+                : <Message>{msg}</Message>}
                 <Url href={url} target="_blank" rel="noopener noreferrer">
                     <div>
                         <UrlTitle>{metadata.title}</UrlTitle>
@@ -276,4 +306,28 @@ const ModalStyled = styled.div`
         background-color: #FFFFFF;
         color: #1877F2;
     }
+`
+const NewInput = styled.textarea`
+    height: 44px;
+    width: 503px;
+    border-radius: 7px;
+    resize: none;
+    background-color: #EFEFEF;
+    border: none;
+
+    padding-left: 12px;
+
+    margin-top: 7px;
+    margin-bottom: 8px;
+
+    font-family: Lato;
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 18px;
+    letter-spacing: 0em;
+    text-align: left;
+
+    box-sizing: border-box;
+
+    cursor: ${props => props.disabled ? "wait" : "text"}
 `
