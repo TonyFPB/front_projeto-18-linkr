@@ -1,29 +1,40 @@
+import axios from "axios";
 import { useState } from "react"
 import styled from "styled-components"
 
-export default function NewPostCard () {
+function getheader() {
+    const header = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    };
+    return header;
+  }
+
+export default function NewPostCard ({timeline}) {
     const [loading, setLoading] = useState(false)
     const [post, setPost] = useState({
         url: "",
         message: ""
     })
-
-    const [erro, setErro] = useState({
-        placeholder1: "http://..." ,
-        placeholder2: "Awesome article about #JavaScript",
-        border: "none"
-    })
+    const [erro, setErro] = useState("")
 
     function postar (event) {
         event.preventDefault()
 
-        if (post.url === "") return setErro({
-            placeholder1: "Insert a valid url",
-            placeholder2: "",
-            border: "solid 2px rgba(255,0,0, 0.4)" 
-        })
+        if (post.url === "") return setErro("Insert a valid url")
 
         setLoading(true)
+
+        const header = getheader();
+        const config = { headers: header };
+        const url = `${process.env.REACT_APP_URL_API}/post`
+
+        const promisse = axios.post(url, post, config)
+        promisse.then(() => {setLoading(false); timeline(); setPost({
+            url: "",
+            message: ""
+        })})
+        promisse.catch((erro) => {setLoading(false); setErro(erro.response.data + " Try again!")})
     }
 
     return (
@@ -33,17 +44,18 @@ export default function NewPostCard () {
                 <Text>What are you going to share today?</Text>
                 <Forms onSubmit={postar}>
 
-                    <Input placeholder={erro.placeholder1} border={erro.border}
+                    <Input placeholder="http://..." border={erro.border}
                     type="url" value={post.url} disabled={loading}
                     onChange={(e) => {setPost({...post, url: e.target.value}); setErro(false)}}/>
 
-                    <Textarea placeholder={erro.placeholder2} border={erro.border}
+                    <Textarea placeholder="Awesome article about #JavaScript" border={erro.border}
                     type="text" value={post.message} disabled={loading}
                     onChange={(e) => setPost({...post, message: e.target.value})}/>
 
-                    <div><Button disabled={loading}>
-                        {loading ? "Publishing..." : "Publish"}
-                    </Button></div>
+                    <div>
+                        <Error>{erro}</Error>
+                        <Button disabled={loading}>{loading ? "Publishing..." : "Publish"}</Button>
+                    </div>
 
                 </Forms>
             </div>
@@ -91,7 +103,14 @@ const Forms = styled.form`
     display: flex;
     flex-direction: column;
     gap: 5px;
-    width: 503px;
+    width: 503px;    font-family: Lato;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #707070;
+
 
     margin-top: 15px;
 
@@ -99,7 +118,8 @@ const Forms = styled.form`
         width: 503px;
         height: 31px;
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
+        align-items: center;
     }
 `
 const Input = styled.input`
@@ -107,7 +127,7 @@ const Input = styled.input`
     width: 100%;
     border-radius: 5px;
     background-color: #EFEFEF;
-    border: ${porps => porps.border};
+    border: none;
 
     padding-left: 12px;
 
@@ -155,4 +175,13 @@ const Button = styled.button`
     color: #fff;
 
     cursor: ${props => props.disabled ? "wait" : "pointer"};
+`
+const Error = styled.p`
+    font-family: Lato;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: rgba(255,0,0, 0.7);
 `
