@@ -75,6 +75,7 @@ const Message = styled.p`
 
     span{
         font-weight: 700;
+        color: #fff;
         cursor: pointer;
     }
 `

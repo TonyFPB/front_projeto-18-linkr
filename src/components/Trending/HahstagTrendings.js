@@ -7,7 +7,7 @@ export default function Trendings({hashtag}){
     const navigate = useNavigate()
 
     return(
-        <Hashtag onClick={()=> console.log(hashtag)}><ReactHashtag onHashtagClick={hashtag=> navigate(()=> `/hashtag/${hashtag.replace("#","")}`)}>{`#${hashtag}`}</ReactHashtag></Hashtag>
+        <Hashtag><ReactHashtag onHashtagClick={hashtag=> navigate(`/hashtag/${hashtag.replace("#","")}`)}>{`#${hashtag}`}</ReactHashtag></Hashtag>
     )
 }
 
@@ -16,7 +16,7 @@ const Hashtag = styled.div`
     color: #fff;
     font-size: 19px;
     font-weight: 700;
-    margin-bottom: 10px;
+    margin-bottom: 11px;
     span{
         cursor: pointer;
     }

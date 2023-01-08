@@ -5,7 +5,7 @@ import Trendings from "./HahstagTrendings"
 
 export default function Trending(){
     const [hashtags,setHashtags] = useState([])
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNjczMTExODEzLCJleHAiOjE2NzMxOTgyMTN9.0iVlgN87Gn85t_1aVOvAiuS12ZIOHZZv2pPzZCmYXrw"
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNjczMjA0MzQ3LCJleHAiOjE2NzMyOTA3NDd9.DhUy2ru3Y9EkXWy03TvOsGTYpO3C75LwB2Q6okBaERg"
     const config = {
         headers: {
             Authorization: `Bearer ${token}`
@@ -30,11 +30,13 @@ export default function Trending(){
 }
 
 const TrendingContainer = styled.div`
-    height: 40vh;
-    width: 31vh;
+    height: 406px;
+    width: 301px;
     background-color: #171717;
     border-radius: 16px;
     padding: 16px;
+    margin-left: 1.4vw;
+    margin-top: 94px;
     h1{
         font-family: 'Oswald';
         color: #fff;
