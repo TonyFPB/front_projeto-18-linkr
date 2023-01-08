@@ -15,13 +15,9 @@ function getheader() {
 export default function FeedContainer () {
     const [data, setData] = useState(undefined)
     const [erro, setErro] = useState(undefined)
-
-    const {token} = JSON.parse(localStorage.getItem("user"))
-    
-    const header = getheader();
-    
-
+  
     useEffect(()=>{
+        const header = getheader();
         const config = { headers: header };
         const url = `${process.env.REACT_APP_URL_API}/post`
         const promisse = axios.get(url, config);
@@ -29,23 +25,25 @@ export default function FeedContainer () {
         promisse.catch((erro) => setErro(erro.response.data))
     },[])
 
-    console.log(data)
+    
+
     return (
         <Feed>
             <Title>timeline</Title>
             <NewPostCard/>
             <Container>
-                {data ? data.length === 0 ? "There are no posts yet" : data.map(data => <PostCard data={data} key={data.id}/>) 
-                : erro ? "An error occured while trying to fetch the posts, please refresh the page" : "Loading..."}
+                {data ? data.length === 0 ? <Message><p>There are no posts yet</p></Message> : data.map(data => <PostCard data={data} key={data.id}/>) 
+                : erro ? <Message><p>An error occured while trying to fetch the posts, please refresh the page</p></Message>  : <Message><p>Loading...</p></Message> }
             </Container>
         </Feed>
     )
 }
 
-const Feed= styled.div`
+const Feed = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 35px;
+    gap: 30px;
+    padding-bottom: 20px;
 `
 const Title = styled.p`
     font-family: Oswald;
@@ -60,7 +58,19 @@ const Title = styled.p`
 const Container = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 15px;
 `
+const Message = styled.div`
+    width: 611px;
+    padding-top: 50px;
 
-
+    p {
+        font-family: Lato;
+        font-size: 30px;
+        font-weight: 400;
+        line-height: 64px;
+        letter-spacing: 0em;
+        text-align: center;
+        color: #fff;
+    }
+`

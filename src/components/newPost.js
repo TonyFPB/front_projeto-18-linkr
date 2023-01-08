@@ -2,7 +2,7 @@ import { useState } from "react"
 import styled from "styled-components"
 
 export default function NewPostCard () {
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
     const [post, setPost] = useState({
         url: "",
         message: ""

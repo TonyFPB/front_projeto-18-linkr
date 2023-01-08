@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const StyledTimeline = styled.div`
     display: flex;
     flex-direction: column;
+    align-items: center;
     margin-top: 72px;
 `
 export const StyledSearchTimeline = styled.div`
