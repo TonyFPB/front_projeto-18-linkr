@@ -5,6 +5,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UserSearch from "../components/UserSearch";
+import FeedContainer from "../components/feedConatiner";
 
 export default function Timeline() {
   const [hide, setHide] = useState(true);
@@ -18,16 +19,14 @@ export default function Timeline() {
         <>
             <Header  setHide={()=>setHide(!hide)} hide={hide}/>
             <StyledTimeline>
-                <StyledSearchTimeline>
-                    <AiOutlineSearch />
-                    <input placeholder="Search for people" />
-                </StyledSearchTimeline>
+                <UserSearch mobile={true} />
                 {hide ? ''
                     :
                     <Overlay onClick={()=>setHide(!hide)}>
                         <div onClick={logOut}>Logout</div> 
                     </Overlay>
                 }
+                <FeedContainer/>
             </StyledTimeline>
         </>
     )

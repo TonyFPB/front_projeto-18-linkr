@@ -4,23 +4,30 @@ import styled from "styled-components"
 import NewPostCard from "./newPost.js"
 import PostCard from "./postCard";
 
+function getheader() {
+    const header = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    };
+    return header;
+  }
+
 export default function FeedContainer () {
     const [data, setData] = useState(undefined)
     const [erro, setErro] = useState(undefined)
 
     const {token} = JSON.parse(localStorage.getItem("user"))
-    console.log(token)
-    useEffect(()=>{
-        const config = {
-            headers: {
-                "Authorization": `Bearer ${token}`
-            }
-        }
+    
+    const header = getheader();
+    
 
-        const promisse = axios.get("https://linkr-api-b96i.onrender.com/post", config)
+    useEffect(()=>{
+        const config = { headers: header };
+        const url = `${process.env.REACT_APP_URL_API}/post`
+        const promisse = axios.get(url, config);
         promisse.then((res) => setData(res.data))
         promisse.catch((erro) => setErro(erro.response.data))
-    },[token])
+    },[])
 
     console.log(data)
     return (
@@ -55,3 +62,5 @@ const Container = styled.div`
     flex-direction: column;
     gap: 20px;
 `
+
+
