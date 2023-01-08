@@ -4,6 +4,7 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Timeline from "./pages/Timeline";
 
+
 function App() {
   console.log("teste")
   return (
@@ -12,7 +13,8 @@ function App() {
       <Routes>
         <Route path="/" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/timeline" element={<Timeline/>}/>
+        <Route path="/timeline" element={<Timeline />} />
+       
       </Routes>
     </BrowserRouter>
   );

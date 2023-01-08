@@ -1,18 +1,18 @@
 import Header from "../components/Header";
 import { StyledSearchTimeline, StyledTimeline } from "../assets/TimelineStyles";
 import { Overlay } from "../assets/HeaderStyles";
-import { AiOutlineSearch } from 'react-icons/ai'
+import { AiOutlineSearch } from "react-icons/ai";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import UserSearch from "../components/UserSearch";
 
 export default function Timeline() {
-    const [hide,setHide] = useState(true)
-    const navigate = useNavigate()
-    function logOut(){
-        localStorage.removeItem("token");
-        navigate("/")
-    }
+  const [hide, setHide] = useState(true);
+  const navigate = useNavigate();
+  function logOut() {
+    localStorage.removeItem("token");
+    navigate("/");
+  }
 
     return (
         <>
@@ -28,7 +28,6 @@ export default function Timeline() {
                         <div onClick={logOut}>Logout</div> 
                     </Overlay>
                 }
-                
             </StyledTimeline>
         </>
     )
