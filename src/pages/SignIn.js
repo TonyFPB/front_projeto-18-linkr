@@ -45,6 +45,7 @@ export default function SignIn() {
     setLoading(true);
 
     if (email && password) {
+      console.log('a')
       const url = `${process.env.REACT_APP_URL_API}/signin`;
       const body = { email, password };
       const promisse = axios.post(url, body);
