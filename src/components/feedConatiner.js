@@ -12,7 +12,7 @@ function getheader() {
   return header;
 }
 
-export default function FeedContainer({ setUserSelected }) {
+export default function FeedContainer({ setUserSelected, userImage }) {
   const [data, setData] = useState(undefined);
   const [erro, setErro] = useState(undefined);
 
@@ -30,7 +30,7 @@ export default function FeedContainer({ setUserSelected }) {
   return (
     <Feed>
       <Title>timeline</Title>
-      <NewPostCard timeline={timeline} />
+      <NewPostCard userImage={userImage} timeline={timeline} />
       <Container>
         {data ? (
           data.length === 0 ? (

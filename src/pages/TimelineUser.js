@@ -12,7 +12,7 @@ function getheader() {
   return header;
 }
 
-export default function TimelineUser({ user, setUserSelected }) {
+export default function TimelineUser({ user, setUserSelected, userImage }) {
   const [data, setData] = useState(undefined);
   const [erro, setErro] = useState(undefined);
 
@@ -47,7 +47,7 @@ export default function TimelineUser({ user, setUserSelected }) {
         <img src={user.user.image} alt="" />
         {`${user.user.name}'s posts`}
       </Title>
-      <NewPostCard timeline={feedUser} />
+      <NewPostCard timeline={feedUser} userImage={userImage} />
       <Container>
         {data ? (
           data.length === 0 ? (
