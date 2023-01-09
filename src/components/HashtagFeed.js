@@ -32,7 +32,7 @@ export default function FeedContainer({ setUserSelected }) {
 
   return (
     <Feed>
-      <Title>timeline</Title>
+      <Title># {hashtag}</Title>
       <Container>
         {data ? (
           data.length === 0 ? (
