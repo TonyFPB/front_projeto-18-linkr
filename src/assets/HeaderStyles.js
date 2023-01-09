@@ -12,7 +12,7 @@ export const StyledHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
+  z-index: 2;
   p {
     font-family: "Passion One";
     font-style: normal;
@@ -97,12 +97,12 @@ export const StyledImageDiv = styled.div`
 `;
 export const Overlay = styled.div`
   position: fixed;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.1);
   top: 0;
   bottom: 0;
   right: 0;
   left: 0;
-  z-index: 1;
+  z-index: 3;
   div {
     display: flex;
     align-items: center;
