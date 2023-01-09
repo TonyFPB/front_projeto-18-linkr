@@ -6,8 +6,9 @@ import axios from "axios";
 import { AiOutlineSearch } from "react-icons/ai";
 import { StyledSearchTimeline, StyledTimeline } from "../assets/TimelineStyles";
 import { StyledSearch } from "../assets/HeaderStyles";
+import Timeline from "../pages/Timeline";
 
-export default function UserSearch({ mobile }) {
+export default function UserSearch({ mobile, setUserSelected }) {
   const [name, setName] = useState("");
   const [resultsPeople, setResultsPeople] = useState([]);
   const [timelineUserSelected, setTimeLineUserSelected] = useState([]);
@@ -54,8 +55,8 @@ export default function UserSearch({ mobile }) {
     try {
       const url = `${process.env.REACT_APP_URL_API}/user/${idUser}`;
       await axios.get(url, { headers: header }).then((response) => {
-        console.log("timeline =", response.data);
         setTimeLineUserSelected(response.data);
+        setUserSelected(response.data);
         setResultsPeople([]);
       });
     } catch (error) {}

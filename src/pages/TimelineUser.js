@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import NewPostCard from "./newPost.js";
-import PostCard from "./postCard";
+import NewPostCard from "../components/newPost.js";
+import PostCard from "../components/postCard.js";
 
 function getheader() {
   const header = {
@@ -12,25 +12,42 @@ function getheader() {
   return header;
 }
 
-export default function FeedContainer({ setUserSelected }) {
+export default function TimelineUser({ user, setUserSelected }) {
   const [data, setData] = useState(undefined);
   const [erro, setErro] = useState(undefined);
 
-  function timeline() {
-    const header = getheader();
+  function getheader() {
+    const header = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    };
+    return header;
+  }
+
+  const header = getheader();
+  let id = 0;
+
+  if (Object.keys(user).length !== 0) {
+    id = user.user.id;
+  }
+
+  function feedUser() {
     const config = { headers: header };
-    const url = `${process.env.REACT_APP_URL_API}/post`;
+    const url = `${process.env.REACT_APP_URL_API}/user/${id}`;
     const promisse = axios.get(url, config);
     promisse.then((res) => setData(res.data));
     promisse.catch((erro) => setErro(erro.response.data));
   }
 
-  useEffect(timeline, []);
+  useEffect(feedUser, [id]);
 
   return (
     <Feed>
-      <Title>timeline</Title>
-      <NewPostCard timeline={timeline} />
+      <Title>
+        <img src={user.user.image} alt="" />
+        {`${user.user.name}'s posts`}
+      </Title>
+      <NewPostCard timeline={feedUser} />
       <Container>
         {data ? (
           data.length === 0 ? (
@@ -38,14 +55,18 @@ export default function FeedContainer({ setUserSelected }) {
               <p>There are no posts yet</p>
             </Message>
           ) : (
-            data.map((data) => (
-              <PostCard
-                data={data}
-                key={data.id}
-                timeline={timeline}
-                setUserSelected={setUserSelected}
-              />
-            ))
+            data.posts.map((data) => {
+              if (data.id)
+                return (
+                  <PostCard
+                    data={data}
+                    key={data.id}
+                    user={user.user}
+                    setUserSelected={setUserSelected}
+                    timeline={feedUser}
+                  />
+                );
+            })
           )
         ) : erro ? (
           <Message>
@@ -70,6 +91,7 @@ const Feed = styled.div`
   gap: 30px;
   padding-bottom: 20px;
 `;
+
 const Title = styled.p`
   font-family: Oswald;
   font-size: 43px;
@@ -78,6 +100,14 @@ const Title = styled.p`
   letter-spacing: 0em;
   text-align: left;
   color: #fff;
+
+  img {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    margin-right: 18px;
+    margin-top: 10px;
+  }
 `;
 
 const Container = styled.div`
