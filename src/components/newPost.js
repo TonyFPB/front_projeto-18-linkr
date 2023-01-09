@@ -1,36 +1,79 @@
+import axios from "axios";
+import { useState } from "react"
 import styled from "styled-components"
 
-export default function PostCard () {
+function getheader() {
+    const header = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    };
+    return header;
+  }
+
+export default function NewPostCard ({timeline}) {
+    const [loading, setLoading] = useState(false)
+    const [post, setPost] = useState({
+        url: "",
+        message: ""
+    })
+    const [erro, setErro] = useState("")
+
+    function postar (event) {
+        event.preventDefault()
+
+        if (post.url === "") return setErro("Insert a valid url")
+
+        setLoading(true)
+
+        const header = getheader();
+        const config = { headers: header };
+        const url = `${process.env.REACT_APP_URL_API}/post`
+
+        const promisse = axios.post(url, post, config)
+        promisse.then(() => {setLoading(false); timeline(); setPost({
+            url: "",
+            message: ""
+        })})
+        promisse.catch((erro) => {setLoading(false); setErro(erro.response.data + " Try again!")})
+    }
+
     return (
         <Card>
             <Img src="https://www.petz.com.br/blog/wp-content/uploads/2021/11/enxoval-para-gato-Copia.jpg" alt="user icon"/>
             <div className="div">
-                <Name>Gatinho programador</Name>
-                <Message>Muito maneiro esse tutorial de Material UI com React, deem uma olhada!</Message>
-                <Url href="https://medium.com/@pshrmn/a-simple-react-router" target="_blank" rel="noopener noreferrer">
+                <Text>What are you going to share today?</Text>
+                <Forms onSubmit={postar}>
+
+                    <Input placeholder="http://..." border={erro.border}
+                    type="url" value={post.url} disabled={loading}
+                    onChange={(e) => {setPost({...post, url: e.target.value}); setErro(false)}}/>
+
+                    <Textarea placeholder="Awesome article about #JavaScript" border={erro.border}
+                    type="text" value={post.message} disabled={loading}
+                    onChange={(e) => setPost({...post, message: e.target.value})}/>
+
                     <div>
-                        <UrlTitle>Como aplicar o Material UI em um projeto React</UrlTitle>
-                        <UrlContent>Hey! I have moved this tutorial to my personal blog. Same content, new location. Sorry about making you click through to another page.</UrlContent>
-                        <UrlFotmat>https://medium.com/@pshrmn/a-simple-react-router</UrlFotmat>
+                        <Error>{erro}</Error>
+                        <Button disabled={loading}>{loading ? "Publishing..." : "Publish"}</Button>
                     </div>
-                    <UrlImg src="https://pixlr.com/images/index/remove-bg.webp" alt="url image"/>
-                </Url>
+
+                </Forms>
             </div>
         </Card>
     )
 }
 
 const Card = styled.div`
-    height: 276px;
+    height: 209px;
     width: 611px;
     border-radius: 16px;
-    background-color: #171717;
+    background-color: #FFF;
     box-sizing: border-box;
 
     display: flex;
     
     .div {
-        width: 100%;     
+        width: 100%;
         height: 100%;
         padding: 15px;
     }
@@ -43,89 +86,102 @@ const Img = styled.img`
     margin-top: 18px;
     margin-left: 18px;
 `
-const Name = styled.p`
+const Text = styled.p`
     font-family: Lato;
-    font-size: 19px;
-    font-weight: 400;
-    line-height: 23px;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 24px;
     letter-spacing: 0em;
     text-align: left;
-    color: #FFFFFF;
-`
-const Message = styled.p`
-    font-family: Lato;
-    font-size: 17px;
-    font-weight: 400;
-    line-height: 20px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #B7B7B7;
+    color: #707070;
 
     display: block;
-    height: 52px;
-    width: 502px;
-    margin: 7px 0;
+    height: 20px;
+    width: 445px;
 `
-const Url = styled.a`
-    height: 155px;
-    width: 503px;
-    border-radius: 11px;
-    border: 1px solid #4D4D4D;
-
+const Forms = styled.form`
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 5px;
+    width: 503px;    font-family: Lato;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #707070;
 
-    overflow: hidden;
 
-    cursor: pointer;
-
-    text-decoration: none;
+    margin-top: 15px;
 
     div {
+        width: 503px;
+        height: 31px;
         display: flex;
-        flex-direction: column;
-        gap: 7px;
-
-        padding: 20px;
+        justify-content: space-between;
+        align-items: center;
     }
 `
-const UrlTitle = styled.p`
+const Input = styled.input`
+    height: 30px;
+    width: 100%;
+    border-radius: 5px;
+    background-color: #EFEFEF;
+    border: none;
+
+    padding-left: 12px;
+
     font-family: Lato;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 19px;
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 18px;
     letter-spacing: 0em;
     text-align: left;
-    color: #CECECE;
 
-    display: block;
-    width: 300px;
+    box-sizing: border-box;
 `
-const UrlContent = styled.p`
+const Textarea = styled.textarea`
+    height: 70px;
+    width: 100%;
+    resize: none;
+    border-radius: 5px;
+    background-color: #EFEFEF;
+    border: ${porps => porps.border};
+
+    padding-left: 12px;
+    padding-top: 8px;
+
     font-family: Lato;
-    font-size: 11px;
-    font-weight: 400;
-    line-height: 13px;
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 18px;
     letter-spacing: 0em;
     text-align: left;
-    color:#9B9595;
 
-    display: block;
-    width: 300px;
+    box-sizing: border-box;
 `
-const UrlFotmat = styled.p`
+const Button = styled.button`
+    height: 31px;
+    width: 112px;
+    border-radius: 5px;
+    border: none;
+    background-color: #1877F2;
+
     font-family: Lato;
-    font-size: 11px;
-    font-weight: 400;
-    line-height: 13px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 17px;
+    letter-spacing: 0em;
+    color: #fff;
+
+    cursor: ${props => props.disabled ? "wait" : "pointer"};
+`
+const Error = styled.p`
+    font-family: Lato;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 24px;
     letter-spacing: 0em;
     text-align: left;
-    color:#CECECE;
-
-    display: block;
-    width: 300px;
-`
-const UrlImg = styled.img`
-    height: 155px;
-    width: 153.44039916992188px;
+    color: rgba(255,0,0, 0.7);
 `

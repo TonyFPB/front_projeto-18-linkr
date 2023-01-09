@@ -8,6 +8,8 @@ import UserSearch from "../components/UserSearch";
 import styled from "styled-components";
 import TimelineUser from "./TimelineUser";
 
+import FeedContainer from "../components/feedConatiner";
+
 export default function Timeline() {
   const [hide, setHide] = useState(true);
   const navigate = useNavigate();
@@ -36,6 +38,8 @@ export default function Timeline() {
             <div onClick={logOut}>Logout</div>
           </Overlay>
         )}
+
+        <FeedContainer />
       </StyledTimeline>
       {/* {( userSelected !== null) &&  <TimelineUser  user={userSelected} />} */}
 
