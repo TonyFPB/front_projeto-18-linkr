@@ -11,11 +11,10 @@ import styled from "styled-components";
 //{/* Maris */}
 import noUser from '../assets/image/noUser.jpg'
 export default function Header(props) {
-  const { setHide, hide, userImage } = props;
-
+  const { setHide, hide, userImage,userSelected,setUserSelected} = props;
   return (
     <StyledHeader>
-      <p>linkr</p>
+      <p onClick={()=>setUserSelected(null)}>linkr</p>
 
       <SearchArea>
         <UserSearch mobile={false} setUserSelected={props.setUserSelected} />

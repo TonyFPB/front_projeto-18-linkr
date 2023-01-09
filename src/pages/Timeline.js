@@ -49,6 +49,7 @@ export default function Timeline() {
         hide={hide}
         setUserSelected={setUserSelected}
         userImage={userImage}
+        userSelected={userSelected}
       />
       <StyledTimeline>
         <UserSearch mobile={true} setUserSelected={setUserSelected} />
