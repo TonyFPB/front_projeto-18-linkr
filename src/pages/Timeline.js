@@ -36,14 +36,14 @@ export default function Timeline() {
     promisse
       .then(res => { setUserImage(res.data.image) })
       .catch(err => {
-        // swal.fire({
-        //   icon: "error",
-        //   title: <PopUp>You are no longer logged in. Back to the sign in page.</PopUp>,
-        //   background: "#333333 ",
-        //   confirmButtonColor: "red",
-        //   confirmButtonText: <PopUp>OK</PopUp>,
-        // });
-        // navigate("/")
+        swal.fire({
+          icon: "error",
+          title: <PopUp>You are no longer logged in. Back to the sign in page.</PopUp>,
+          background: "#333333 ",
+          confirmButtonColor: "red",
+          confirmButtonText: <PopUp>OK</PopUp>,
+        });
+        navigate("/")
       })
   }, [])
   return (
