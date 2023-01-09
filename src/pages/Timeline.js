@@ -12,7 +12,7 @@ export default function Timeline() {
   const [hide, setHide] = useState(true);
   const navigate = useNavigate();
   // const [timeline, setTimeLine] = useState([]);
-  const [userSelected, setUserSelected] = useState(null)
+  const [userSelected, setUserSelected] = useState(null);
 
   function logOut() {
     localStorage.removeItem("token");
@@ -21,7 +21,11 @@ export default function Timeline() {
 
   return (
     <>
-      <Header setHide={() => setHide(!hide)} hide={hide} setUserSelected={setUserSelected}  />
+      <Header
+        setHide={() => setHide(!hide)}
+        hide={hide}
+        setUserSelected={setUserSelected}
+      />
       <StyledTimeline>
         <UserSearch mobile={true} setUserSelected={setUserSelected} />
 
@@ -33,10 +37,7 @@ export default function Timeline() {
           </Overlay>
         )}
       </StyledTimeline>
-      {( userSelected !== null) &&  <TimelineUser  user={userSelected} />}
-      
-
-      
+      {/* {( userSelected !== null) &&  <TimelineUser  user={userSelected} />} */}
     </>
   );
 }
