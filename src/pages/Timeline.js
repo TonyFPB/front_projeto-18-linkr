@@ -38,6 +38,12 @@ export default function Timeline() {
         )}
       </StyledTimeline>
       {/* {( userSelected !== null) &&  <TimelineUser  user={userSelected} />} */}
+
+      {userSelected !== null ? (
+        <TimelineUser user={userSelected} setUserSelected={setUserSelected} />
+      ) : (
+        <TimelineUser user={{}} setUserSelected={setUserSelected} />
+      )}
     </>
   );
 }

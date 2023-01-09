@@ -4,7 +4,8 @@ import styled from "styled-components";
 import NewPostCard from "../components/newPost.js";
 import PostCard from "../components/postCard.js";
 
-export default function TimelineUser({ user }) {
+// export default function FeedContainer({ user, setUserSelected }) {
+export default function TimelineUser({ user, setUserSelected }) {
   const [data, setData] = useState(undefined);
   const [erro, setErro] = useState(undefined);
 
@@ -17,14 +18,30 @@ export default function TimelineUser({ user }) {
   }
 
   const header = getheader();
+  let id = 0;
+  console.log("user =", user);
+  //  const id = (user !== 0) user.user.id : 0;
+  // let id = 0
 
-  const id = user.user.id;
+  if (Object.keys(user).length !== 0) {
+    id = user.user.id;
+  }
+  // else {
+  //   id = 0
+  // }
 
   useEffect(() => {
     const config = { headers: header };
+    let url = "";
+    if (id > 0) {
+      url = `${process.env.REACT_APP_URL_API}/user/${id}`;
+    } else {
+      // colocar rota que tras de todos os posts de todos os usuários
+      console.log("Rota de todos os posts de todos os usuários");
+    }
 
-    const url = `${process.env.REACT_APP_URL_API}/user/${id}`;
     // const url = `${process.env.REACT_APP_URL_API}/post`;
+
     const promisse = axios.get(url, config);
 
     promisse.then((res) => setData(res.data));
@@ -33,10 +50,14 @@ export default function TimelineUser({ user }) {
 
   return (
     <Feed>
-      <Title>
-        <img src={user.user.image} alt="" />
-        {`${user.user.name}'s posts`}
-      </Title>
+      {id === 0 ? (
+        <Title>Timeline</Title>
+      ) : (
+        <Title>
+          <img src={user.user.image} alt="" />
+          {`${user.user.name}'s posts`}
+        </Title>
+      )}
       <NewPostCard />
       <Container>
         {data
@@ -46,7 +67,12 @@ export default function TimelineUser({ user }) {
               data.posts.map((data) => {
                 if (data.id)
                   return (
-                    <PostCard data={data} key={data.id} user={user.user} />
+                    <PostCard
+                      data={data}
+                      key={data.id}
+                      user={user.user}
+                      setUserSelected={setUserSelected}
+                    />
                   );
               })
           : erro
