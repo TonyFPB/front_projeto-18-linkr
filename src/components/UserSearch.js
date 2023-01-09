@@ -55,10 +55,8 @@ export default function UserSearch({ mobile, setUserSelected }) {
     try {
       const url = `${process.env.REACT_APP_URL_API}/user/${idUser}`;
       await axios.get(url, { headers: header }).then((response) => {
-        console.log("timeline =", response.data);
-        console.log("timeline.user =", response.data.user.id);
         setTimeLineUserSelected(response.data);
-        setUserSelected(response.data)
+        setUserSelected(response.data);
         setResultsPeople([]);
       });
     } catch (error) {}

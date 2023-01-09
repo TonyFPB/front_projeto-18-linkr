@@ -28,7 +28,7 @@ function getheader() {
   return header;
 }
 
-export default function PostCard({ data, timeline }) {
+export default function PostCard({ data, timeline, user, setUserSelected }) {
   const { id, post_user_id, owner, image, name, message, url, metadata } = data;
 
   const [modal, setModal] = useState(false);
@@ -43,6 +43,15 @@ export default function PostCard({ data, timeline }) {
   const header = getheader();
   const config = { headers: header };
   const axiosUrl = `${process.env.REACT_APP_URL_API}/post/${id}`;
+
+  async function searchPeopleByid(idUser) {
+    try {
+      const url = `${process.env.REACT_APP_URL_API}/user/${idUser}`;
+      await axios.get(url, { headers: header }).then((response) => {
+        setUserSelected(response.data);
+      });
+    } catch (error) {}
+  }
 
   function toUpdate(e) {
     if (e.keyCode === 27) {

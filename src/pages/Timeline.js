@@ -13,7 +13,6 @@ import FeedContainer from "../components/feedConatiner";
 export default function Timeline() {
   const [hide, setHide] = useState(true);
   const navigate = useNavigate();
-  // const [timeline, setTimeLine] = useState([]);
   const [userSelected, setUserSelected] = useState(null);
 
   function logOut() {
@@ -39,15 +38,13 @@ export default function Timeline() {
           </Overlay>
         )}
 
-        <FeedContainer />
+        {userSelected !== null ? (
+          <TimelineUser user={userSelected} setUserSelected={setUserSelected} />
+        ) : (
+          <FeedContainer setUserSelected={setUserSelected} />
+        )}
       </StyledTimeline>
       {/* {( userSelected !== null) &&  <TimelineUser  user={userSelected} />} */}
-
-      {/* {userSelected !== null ? (
-        <TimelineUser user={userSelected} setUserSelected={setUserSelected} />
-      ) : (
-        <TimelineUser user={{}} setUserSelected={setUserSelected} />
-      )} */}
     </>
   );
 }
