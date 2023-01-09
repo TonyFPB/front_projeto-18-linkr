@@ -77,21 +77,6 @@ export default function PostCard ({data, timeline}) {
     }
 
     return (
-        // <Card>
-        //     <Img src={image} alt="user icon"/>
-        //     <div className="div">
-        //         <Name>{name}</Name>
-        //         <Message><ReactHashtag onHashtagClick={hashtag=> navigate(()=> `/hashtag/${hashtag.replace("#","")}`)}>{message}</ReactHashtag></Message>
-        //         <Url href={url} target="_blank" rel="noopener noreferrer">
-        //             <div>
-        //                 <UrlTitle>{metadata.title}</UrlTitle>
-        //                 <UrlContent>{metadata.description}</UrlContent>
-        //                 <UrlFotmat>{url}</UrlFotmat>
-        //             </div>
-        //             <UrlImg src={metadata.image} alt="url image"/>
-        //         </Url>
-        //     </div>
-        // </Card>
         <Card>
             <Modal 
                 isOpen={modal}
@@ -128,7 +113,7 @@ export default function PostCard ({data, timeline}) {
                 </Top>
                 {edit? <NewInput ref={newInput} value={newMsg} disabled={editLoad}
                 onChange={(e) => setNewMsg(e.target.value)} onKeyDown={toUpdate}/> 
-                : <Message>{msg}</Message>}
+                : <ReactTagify colors="#fff" tagClicked={hashtag=> navigate(`/hashtag/${hashtag.replace("#","")}`)}><Message>{msg}</Message></ReactTagify>}
                 <Url href={url} target="_blank" rel="noopener noreferrer">
                     <div>
                         <UrlTitle>{metadata.title}</UrlTitle>

@@ -4,10 +4,14 @@ import { ReactTagify } from "react-tagify";
 
 export default function Trendings({hashtag}){
     
-    const navigate = useNavigate()
+    const navigate = useNavigate(hashtag)
+    function teste(){
+        navigate(`/hashtag/${hashtag.replace("#","")}`)
+        window.location.reload()
+    }
 
     return(
-        <ReactTagify colors="#fff" tagClicked={hashtag=> navigate(`/hashtag/${hashtag.replace("#","")}`)}><Hashtag>{`#${hashtag}`}</Hashtag></ReactTagify>
+        <ReactTagify colors="#fff" tagClicked={hashtag=> teste(hashtag)}><Hashtag>{`#${hashtag}`}</Hashtag></ReactTagify>
     )
 }
 

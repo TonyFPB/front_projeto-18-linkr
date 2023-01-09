@@ -32,7 +32,7 @@ export default function HashtagPage(){
             <Feed>
                 <Title>{`#  ${hashtag}`}</Title>
                 <Container>
-                    {data.map(post=> <PostCard data={post}></PostCard>)}
+                    {data.map(post=> <PostCard data={post} key={post.id}></PostCard>)}
                 </Container>
             </Feed>
             <Trending></Trending>
