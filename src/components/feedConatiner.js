@@ -101,7 +101,3 @@ const Message = styled.div`
         color: #fff;
     }
 `
-
-const ContainerTrendsFeed = styled.div`
-    display: flex;
-`

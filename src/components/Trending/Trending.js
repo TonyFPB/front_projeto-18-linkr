@@ -36,6 +36,7 @@ const TrendingContainer = styled.div`
     border-radius: 16px;
     padding: 16px;
     margin-left: 1.4vw;
+    margin-top: 142px;
     h1{
         font-family: 'Oswald';
         color: #fff;
@@ -45,5 +46,9 @@ const TrendingContainer = styled.div`
     hr{
         margin-top: 17.5px;
         margin-bottom: 23px;
+    }
+
+    @media (max-width: 896px) {
+        display: none;
     }
 `

@@ -9,6 +9,7 @@ import styled from "styled-components";
 import TimelineUser from "./TimelineUser";
 
 import FeedContainer from "../components/feedConatiner";
+import Trending from "../components/Trending/Trending";
 
 export default function Timeline() {
   const [hide, setHide] = useState(true);
@@ -37,14 +38,19 @@ export default function Timeline() {
             <div onClick={logOut}>Logout</div>
           </Overlay>
         )}
-
+        <ContainerTrendsFeed>
         {userSelected !== null ? (
           <TimelineUser user={userSelected} setUserSelected={setUserSelected} />
         ) : (
           <FeedContainer setUserSelected={setUserSelected} />
         )}
+        <Trending></Trending></ContainerTrendsFeed>
       </StyledTimeline>
       {/* {( userSelected !== null) &&  <TimelineUser  user={userSelected} />} */}
     </>
   );
 }
+
+const ContainerTrendsFeed = styled.div`
+    display: flex;
+`
