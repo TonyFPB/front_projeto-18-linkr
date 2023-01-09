@@ -210,6 +210,7 @@ const SearchResults = styled.div`
 `;
 
 const SearchResultsMobile = styled.div`
+  width: 95%;
   display: none;
   padding: 0 0 0 17px;
   margin-left: 17px;
@@ -228,6 +229,7 @@ const SearchResultsMobile = styled.div`
   color: #515151;
 
   ul {
+    width: 100%;
     padding-left: 17px;
     padding-top: 14px;
     /* padding-bottom: 23px; */
