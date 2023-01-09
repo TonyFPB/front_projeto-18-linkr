@@ -18,7 +18,7 @@ export default function Header(props) {
       <p>linkr</p>
 
       <SearchArea>
-        <UserSearch mobile={false} />
+        <UserSearch mobile={false} setUserSelected={props.setUserSelected} />
       </SearchArea>
 
       <StyledImageDiv onClick={setHide}>

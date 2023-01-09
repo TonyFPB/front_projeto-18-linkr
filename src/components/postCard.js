@@ -2,9 +2,10 @@ import styled from "styled-components"
 
 export default function PostCard ({data}) {
     const {id, owner, image, name, message, url, metadata} = data
-
+    
     return (
         <Card>
+            {/* <Img src={user.image} alt="user icon"/> */}
             <Img src={image} alt="user icon"/>
             <div className="div">
                 <Name>{name}</Name>
