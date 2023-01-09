@@ -5,9 +5,7 @@ import SignUp from "./pages/SignUp";
 import Timeline from "./pages/Timeline";
 import TimelineHashtag from "./pages/HashtagPage";
 
-
 function App() {
-  console.log("teste")
   return (
     <BrowserRouter>
       <GlobalStyle />
