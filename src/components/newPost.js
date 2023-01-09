@@ -69,6 +69,7 @@ const Card = styled.div`
     border-radius: 16px;
     background-color: #FFF;
     box-sizing: border-box;
+    margin-bottom: 10px;
 
     display: flex;
     

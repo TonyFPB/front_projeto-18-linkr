@@ -7,7 +7,6 @@ export default function Trendings({hashtag}){
     const navigate = useNavigate(hashtag)
     function teste(){
         navigate(`/hashtag/${hashtag.replace("#","")}`)
-        window.location.reload()
     }
 
     return(

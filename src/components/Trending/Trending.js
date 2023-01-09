@@ -5,7 +5,7 @@ import Trendings from "./HahstagTrendings"
 
 export default function Trending(){
     const [hashtags,setHashtags] = useState([])
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNjczMjA0MzQ3LCJleHAiOjE2NzMyOTA3NDd9.DhUy2ru3Y9EkXWy03TvOsGTYpO3C75LwB2Q6okBaERg"
+    const token = localStorage.getItem("token")
     const config = {
         headers: {
             Authorization: `Bearer ${token}`
@@ -13,7 +13,7 @@ export default function Trending(){
     }
     function getTrendingHashtags(){
         axios
-            .get("http://localhost:5000/trending",config)
+            .get(`${process.env.REACT_APP_URL_API}/trending`,config)
             .then((res)=> setHashtags(res.data))
             .catch((res) => console.log(res.response.data))
     }
@@ -36,7 +36,6 @@ const TrendingContainer = styled.div`
     border-radius: 16px;
     padding: 16px;
     margin-left: 1.4vw;
-    margin-top: 94px;
     h1{
         font-family: 'Oswald';
         color: #fff;

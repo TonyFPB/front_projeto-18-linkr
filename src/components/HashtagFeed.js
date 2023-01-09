@@ -1,9 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components"
-import NewPostCard from "./newPost.js"
 import PostCard from "./postCard";
-import Trending from "./Trending/Trending.js";
+import Trending from "./Trending/Trending";
+
 
 function getheader() {
     const header = {
@@ -13,27 +14,27 @@ function getheader() {
     return header;
   }
 
-export default function FeedContainer () {
+export default function FeedHashtagContainer () {
     const [data, setData] = useState(undefined)
     const [erro, setErro] = useState(undefined)
+    const {hashtag} = useParams()
   
     function timeline () {
         const header = getheader();
         const config = { headers: header };
-        const url = `${process.env.REACT_APP_URL_API}/post`
+        const url = `${process.env.REACT_APP_URL_API}/post/${hashtag}`
         const promisse = axios.get(url, config);
         promisse.then((res) => setData(res.data))
         promisse.catch((erro) => setErro(erro.response.data))
     }
 
-    useEffect(timeline,[])
+    useEffect(timeline,[hashtag])
 
     return (
         <Feed>
-            <Title>timeline</Title>
+            <Title># {hashtag}</Title>
             <ContainerTrendsFeed>
                 <Container>
-                    <NewPostCard timeline={timeline}/>
                     {data ? data.length === 0 ? <Message><p>There are no posts yet</p></Message> : data.map(data => <PostCard data={data} key={data.id} timeline={timeline}/>) 
                     : erro ? <Message><p>An error occured while trying to fetch the posts, please refresh the page</p></Message>  : <Message><p>Loading...</p></Message> }
                 </Container>
