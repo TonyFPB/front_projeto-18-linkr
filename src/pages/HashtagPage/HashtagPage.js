@@ -17,7 +17,7 @@ export default function HashtagPage(){
     }
 
     function getPosts(){
-        axios.get(`http://localhost:5000/hashtag/${hashtag}`,config)
+        axios.get(`http://localhost:5000/post/${hashtag}`,config)
         .then(res => setData(res.data))
         .catch(err => console.log(err.response.data))
     }
