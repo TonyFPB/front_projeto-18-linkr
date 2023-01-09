@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import NewPostCard from "./newPost.js";
 import PostCard from "./postCard";
@@ -16,22 +17,22 @@ function getheader() {
 export default function FeedContainer({ setUserSelected }) {
   const [data, setData] = useState(undefined);
   const [erro, setErro] = useState(undefined);
+  const {hashtag} = useParams()
 
   function timeline() {
     const header = getheader();
     const config = { headers: header };
-    const url = `${process.env.REACT_APP_URL_API}/post`;
+    const url = `${process.env.REACT_APP_URL_API}/post/${hashtag}`;
     const promisse = axios.get(url, config);
     promisse.then((res) => setData(res.data));
     promisse.catch((erro) => setErro(erro.response.data));
   }
 
-  useEffect(timeline, []);
+  useEffect(timeline, [hashtag]);
 
   return (
     <Feed>
-      <Title>timeline</Title>
-      <NewPostCard timeline={timeline} />
+      <Title># {hashtag}</Title>
       <Container>
         {data ? (
           data.length === 0 ? (

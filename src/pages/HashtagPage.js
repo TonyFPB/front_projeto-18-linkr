@@ -10,6 +10,7 @@ import TimelineUser from "./TimelineUser";
 
 import FeedContainer from "../components/feedConatiner";
 import Trending from "../components/Trending/Trending";
+import FeedHashtagContainer from "../components/HashtagFeed";
 
 export default function Timeline() {
   const [hide, setHide] = useState(true);
@@ -42,7 +43,7 @@ export default function Timeline() {
         {userSelected !== null ? (
           <TimelineUser user={userSelected} setUserSelected={setUserSelected} />
         ) : (
-          <FeedContainer setUserSelected={setUserSelected} />
+          <FeedHashtagContainer setUserSelected={setUserSelected} />
         )}
         <Trending></Trending></ContainerTrendsFeed>
       </StyledTimeline>

@@ -1,7 +1,10 @@
-import styled from "styled-components";
-import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
-import Modal from "react-modal";
-import { useRef, useState } from "react";
+import styled from "styled-components"
+import { useNavigate } from "react-router-dom";
+import { ReactTagify } from "react-tagify";
+
+import {FaPencilAlt, FaTrashAlt} from "react-icons/fa"
+import Modal from "react-modal"
+import {useRef, useState } from "react"
 import axios from "axios";
 import Swal from "sweetalert2";
 
@@ -30,6 +33,7 @@ function getheader() {
 
 export default function PostCard({ data, timeline, user, setUserSelected }) {
   const { id, post_user_id, owner, image, name, message, url, metadata } = data;
+    const navigate = useNavigate()
 
   const [modal, setModal] = useState(false);
   const [modalLoad, setModalLoad] = useState(false);
@@ -155,7 +159,7 @@ export default function PostCard({ data, timeline, user, setUserSelected }) {
             onKeyDown={toUpdate}
           />
         ) : (
-          <Message>{msg}</Message>
+          <ReactTagify colors="#fff" tagClicked={hashtag=> navigate(`/hashtag/${hashtag.replace("#","")}`)}><Message>{msg}</Message></ReactTagify>
         )}
         <Url href={url} target="_blank" rel="noopener noreferrer">
           <div>
