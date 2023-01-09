@@ -9,13 +9,12 @@ import { useState } from "react";
 import UserSearch from "./UserSearch";
 import styled from "styled-components";
 //{/* Maris */}
-
+import noUser from '../assets/image/noUser.jpg'
 export default function Header(props) {
-  const { setHide, hide } = props;
-
+  const { setHide, hide, userImage,userSelected,setUserSelected} = props;
   return (
     <StyledHeader>
-      <p>linkr</p>
+      <p onClick={()=>setUserSelected(null)}>linkr</p>
 
       <SearchArea>
         <UserSearch mobile={false} setUserSelected={props.setUserSelected} />
@@ -23,7 +22,7 @@ export default function Header(props) {
 
       <StyledImageDiv onClick={setHide}>
         {hide ? <AiOutlineDown /> : <AiOutlineUp />}
-        <img src="https://media.istockphoto.com/id/1213516345/pt/foto/crazy-looking-black-and-white-border-collie-dog-say-looking-intently-on-bright-yellow.jpg?s=612x612&w=0&k=20&c=th2GBf4K3yeL3KocFHJpKSTtGer-CxnsFkqqJ60PGgc=" />
+        <img src={userImage ? userImage : noUser} />
       </StyledImageDiv>
     </StyledHeader>
   );
