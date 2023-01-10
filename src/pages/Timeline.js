@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UserSearch from "../components/UserSearch";
 import styled from "styled-components";
-import TimelineUser from "./TimelineUser";
 
 import FeedContainer from "../components/feedConatiner";
 
@@ -17,25 +16,29 @@ import { PopUp } from "../assets/SignStyles";
 
 import Trending from "../components/Trending/Trending";
 
-
 export default function Timeline() {
   const [hide, setHide] = useState(true);
-  const [userImage, setUserImage] = useState('')
+  const [userImage, setUserImage] = useState("");
   const navigate = useNavigate();
   const [userSelected, setUserSelected] = useState(null);
-  const swal = withReactContent(Swal)
+  const swal = withReactContent(Swal);
   function logOut() {
     localStorage.removeItem("token");
     navigate("/");
   }
 
   useEffect(() => {
-    const config = { "headers": { "Authorization": `Bearer ${localStorage.getItem("token")}` } }
-    const url = `${process.env.REACT_APP_URL_API}/user`
-    const promisse = axios.get(url, config)
+    const config = {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    };
+    const url = `${process.env.REACT_APP_URL_API}/user`;
+    const promisse = axios.get(url, config);
     promisse
-      .then(res => { setUserImage(res.data.image) })
-      .catch(err => {
+      .then((res) => {
+        setUserImage(res.data.image);
+        navigate("/timeline");
+      })
+      .catch((err) => {
         // swal.fire({
         //   icon: "error",
         //   title: <PopUp>You are no longer logged in. Back to the sign in page.</PopUp>,
@@ -44,8 +47,8 @@ export default function Timeline() {
         //   confirmButtonText: <PopUp>OK</PopUp>,
         // });
         // navigate("/")
-      })
-  }, [])
+      });
+  }, []);
   return (
     <>
       <Header
@@ -66,18 +69,18 @@ export default function Timeline() {
           </Overlay>
         )}
         <ContainerTrendsFeed>
-        {userSelected !== null ? (
-          <TimelineUser userImage={userImage} user={userSelected} setUserSelected={setUserSelected} />
-        ) : (
-          <FeedContainer userImage={userImage} setUserSelected={setUserSelected} />
-        )}
-        <Trending></Trending></ContainerTrendsFeed>
+          <FeedContainer
+            userImage={userImage}
+            setUserSelected={setUserSelected}
+            user={userSelected}
+          />
+          <Trending></Trending>
+        </ContainerTrendsFeed>
       </StyledTimeline>
-      {/* {( userSelected !== null) &&  <TimelineUser  user={userSelected} />} */}
     </>
   );
 }
 
 const ContainerTrendsFeed = styled.div`
-    display: flex;
-`
+  display: flex;
+`;

@@ -58,6 +58,7 @@ export default function UserSearch({ mobile, setUserSelected }) {
         setTimeLineUserSelected(response.data);
         setUserSelected(response.data);
         setResultsPeople([]);
+        navigate(`/user/${idUser}`);
       });
     } catch (error) {}
   }
