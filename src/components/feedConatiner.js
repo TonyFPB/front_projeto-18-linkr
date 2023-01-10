@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import NewPostCard from "./newPost.js";
 import PostCard from "./postCard";
-import Trending from "./Trending/Trending.js";
 
 function getheader() {
   const header = {

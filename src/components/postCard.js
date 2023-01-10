@@ -1,10 +1,10 @@
-import styled from "styled-components"
+import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { ReactTagify } from "react-tagify";
 
-import {FaPencilAlt, FaTrashAlt} from "react-icons/fa"
-import Modal from "react-modal"
-import {useRef, useState } from "react"
+import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
+import Modal from "react-modal";
+import { useRef, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 
@@ -33,7 +33,7 @@ function getheader() {
 
 export default function PostCard({ data, timeline, user, setUserSelected }) {
   const { id, post_user_id, owner, image, name, message, url, metadata } = data;
-    const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [modal, setModal] = useState(false);
   const [modalLoad, setModalLoad] = useState(false);
@@ -159,7 +159,14 @@ export default function PostCard({ data, timeline, user, setUserSelected }) {
             onKeyDown={toUpdate}
           />
         ) : (
-          <ReactTagify colors="#fff" tagClicked={hashtag=> navigate(`/hashtag/${hashtag.replace("#","")}`)}><Message>{msg}</Message></ReactTagify>
+          <ReactTagify
+            colors="#fff"
+            tagClicked={(hashtag) =>
+              navigate(`/hashtag/${hashtag.replace("#", "")}`)
+            }
+          >
+            <Message>{msg}</Message>
+          </ReactTagify>
         )}
         <Url href={url} target="_blank" rel="noopener noreferrer">
           <div>
@@ -175,42 +182,6 @@ export default function PostCard({ data, timeline, user, setUserSelected }) {
 }
 
 const Card = styled.div`
-<<<<<<< HEAD
-    max-height: 276px;
-    max-width: 611px;
-    border-radius: 16px;
-    background-color: #171717;
-    box-sizing: border-box;
-
-    display: flex;
-
-    .div {
-        max-width: 100%;     
-        max-height: 100%;
-        padding: 15px;
-    }
-
-    .modal {
-        max-height: 262px;
-        max-width: 597px;
-        border-radius: 50px;
-    } 
-`
-const Img = styled.img`
-    max-width: 50px;
-    max-height: 50px;
-    border-radius: 100%;
-
-    margin-top: 18px;
-    margin-left: 18px;
-
-    /* @media (max-width: 611px) {
-        height: 100%;
-        width: 100%;
-        background-color: green;
-    } */
-`
-=======
   height: 276px;
   width: 611px;
   border-radius: 16px;
@@ -240,7 +211,7 @@ const Img = styled.img`
   margin-top: 18px;
   margin-left: 18px;
 `;
->>>>>>> 7bf5efe886cb17cba9503eb1c962177920225e81
+
 const Name = styled.p`
   font-family: Lato;
   font-size: 19px;
@@ -251,30 +222,6 @@ const Name = styled.p`
   color: #ffffff;
 `;
 const Message = styled.p`
-<<<<<<< HEAD
-    font-family: Lato;
-    font-size: 17px;
-    font-weight: 400;
-    line-height: 20px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #B7B7B7;
-
-    display: block;
-    height: 52px;
-    max-width: 502px;
-    margin: 7px 0;
-`
-const Url = styled.a`
-    height: 155px;
-    max-width: 503px;
-    border-radius: 11px;
-    border: 1px solid #4D4D4D;
-
-
-    display: flex;
-    justify-content: space-between;
-=======
   font-family: Lato;
   font-size: 17px;
   font-weight: 400;
@@ -296,8 +243,6 @@ const Url = styled.a`
 
   display: flex;
   justify-content: space-between;
->>>>>>> 7bf5efe886cb17cba9503eb1c962177920225e81
-
   overflow: hidden;
 
   cursor: pointer;
@@ -308,55 +253,6 @@ const Url = styled.a`
     display: flex;
     flex-direction: column;
     gap: 7px;
-
-<<<<<<< HEAD
-        padding: 20px;
-    }
-
-`
-const UrlTitle = styled.p`
-    font-family: Lato;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 19px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #CECECE;
-
-    display: block;
-    max-width: 300px;
-`
-const UrlContent = styled.p`
-    font-family: Lato;
-    font-size: 11px;
-    font-weight: 400;
-    line-height: 13px;
-    letter-spacing: 0em;
-    text-align: left;
-    color:#9B9595;
-
-    display: block;
-    max-width: 300px;
-`
-const UrlFotmat = styled.p`
-    font-family: Lato;
-    font-size: 11px;
-    font-weight: 400;
-    line-height: 13px;
-    letter-spacing: 0em;
-    text-align: left;
-    color:#CECECE;
-
-    display: block;
-    max-width: 300px;
-`
-const UrlImg = styled.img`
-    max-height: 155px;
-    max-width: 153.44039916992188px;
-`
-const Top = styled.div`
-    max-width: 503px;
-=======
     padding: 20px;
   }
 `;
@@ -370,7 +266,7 @@ const UrlTitle = styled.p`
   color: #cecece;
 
   display: block;
-  width: 300px;
+  max-width: 300px;
 `;
 const UrlContent = styled.p`
   font-family: Lato;
@@ -382,7 +278,7 @@ const UrlContent = styled.p`
   color: #9b9595;
 
   display: block;
-  width: 300px;
+  max-width: 300px;
 `;
 const UrlFotmat = styled.p`
   font-family: Lato;
@@ -394,16 +290,14 @@ const UrlFotmat = styled.p`
   color: #cecece;
 
   display: block;
-  width: 300px;
+  max-width: 300px;
 `;
 const UrlImg = styled.img`
-  height: 155px;
-  width: 153.44039916992188px;
+  max-height: 155px;
+  max-width: 153.44039916992188px;
 `;
 const Top = styled.div`
-  width: 503px;
->>>>>>> 7bf5efe886cb17cba9503eb1c962177920225e81
-
+  max-width: 503px;
   display: flex;
   justify-content: space-between;
   align-items: center;
