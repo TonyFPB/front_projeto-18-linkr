@@ -125,34 +125,39 @@ export default function PostCard ({data, timeline}) {
 
 
 const Card = styled.div`
-    height: 276px;
-    width: 611px;
+    max-height: 276px;
+    max-width: 611px;
     border-radius: 16px;
     background-color: #171717;
     box-sizing: border-box;
 
     display: flex;
-    
+
     .div {
-        width: 100%;     
-        height: 100%;
+        max-width: 100%;     
+        max-height: 100%;
         padding: 15px;
     }
 
     .modal {
-        height: 262px;
-        width: 597px;
+        max-height: 262px;
+        max-width: 597px;
         border-radius: 50px;
-
     } 
 `
 const Img = styled.img`
-    width: 50px;
-    height: 50px;
+    max-width: 50px;
+    max-height: 50px;
     border-radius: 100%;
 
     margin-top: 18px;
     margin-left: 18px;
+
+    /* @media (max-width: 611px) {
+        height: 100%;
+        width: 100%;
+        background-color: green;
+    } */
 `
 const Name = styled.p`
     font-family: Lato;
@@ -174,14 +179,15 @@ const Message = styled.p`
 
     display: block;
     height: 52px;
-    width: 502px;
+    max-width: 502px;
     margin: 7px 0;
 `
 const Url = styled.a`
     height: 155px;
-    width: 503px;
+    max-width: 503px;
     border-radius: 11px;
     border: 1px solid #4D4D4D;
+
 
     display: flex;
     justify-content: space-between;
@@ -199,6 +205,7 @@ const Url = styled.a`
 
         padding: 20px;
     }
+
 `
 const UrlTitle = styled.p`
     font-family: Lato;
@@ -210,7 +217,7 @@ const UrlTitle = styled.p`
     color: #CECECE;
 
     display: block;
-    width: 300px;
+    max-width: 300px;
 `
 const UrlContent = styled.p`
     font-family: Lato;
@@ -222,7 +229,7 @@ const UrlContent = styled.p`
     color:#9B9595;
 
     display: block;
-    width: 300px;
+    max-width: 300px;
 `
 const UrlFotmat = styled.p`
     font-family: Lato;
@@ -234,14 +241,14 @@ const UrlFotmat = styled.p`
     color:#CECECE;
 
     display: block;
-    width: 300px;
+    max-width: 300px;
 `
 const UrlImg = styled.img`
-    height: 155px;
-    width: 153.44039916992188px;
+    max-height: 155px;
+    max-width: 153.44039916992188px;
 `
 const Top = styled.div`
-    width: 503px;
+    max-width: 503px;
 
     display: flex;
     justify-content: space-between;
