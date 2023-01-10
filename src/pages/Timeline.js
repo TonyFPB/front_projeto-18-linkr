@@ -17,7 +17,6 @@ import { PopUp } from "../assets/SignStyles";
 
 import Trending from "../components/Trending/Trending";
 
-
 export default function Timeline() {
   const [hide, setHide] = useState(true);
   const [userImage, setUserImage] = useState('')
