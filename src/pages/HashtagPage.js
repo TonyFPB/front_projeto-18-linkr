@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UserSearch from "../components/UserSearch";
 import styled from "styled-components";
-import TimelineUser from "./TimelineUser";
+//import TimelineUser from "./TimelineUser";
 
 import FeedContainer from "../components/feedConatiner";
 import Trending from "../components/Trending/Trending";
@@ -40,12 +40,18 @@ export default function Timeline() {
           </Overlay>
         )}
         <ContainerTrendsFeed>
-        {userSelected !== null ? (
+          {/* {userSelected !== null ? (
           <TimelineUser user={userSelected} setUserSelected={setUserSelected} />
         ) : (
           <FeedHashtagContainer setUserSelected={setUserSelected} />
-        )}
-        <Trending></Trending></ContainerTrendsFeed>
+        )} */}
+          <FeedHashtagContainer
+            user={userSelected}
+            setUserSelected={setUserSelected}
+          />
+
+          <Trending></Trending>
+        </ContainerTrendsFeed>
       </StyledTimeline>
       {/* {( userSelected !== null) &&  <TimelineUser  user={userSelected} />} */}
     </>
@@ -53,5 +59,5 @@ export default function Timeline() {
 }
 
 const ContainerTrendsFeed = styled.div`
-    display: flex;
-`
+  display: flex;
+`;

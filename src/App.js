@@ -11,17 +11,17 @@ function App() {
   const [user, setUser] = useState(undefined);
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
-      <BrowserRouter>
-        <GlobalStyle />
-        <Routes>
-          <Route path="/" element={<SignIn />} />
-          <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/timeline" element={<Timeline />} />
-          <Route path="/hashtag/:hashtag" element={<TimelineHashtag />} />
-        </Routes>
-      </BrowserRouter>
-    </UserContext.Provider>
+   <BrowserRouter>
+      <GlobalStyle />
+      <Routes>
+        <Route path="/" element={<SignIn />} />
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/timeline" element={<Timeline/>}/>
+        <Route path="/user/:id" element={<Timeline/>}/>
+        <Route path="/hashtag/:hashtag" element={<TimelineHashtag/>}/>
+      </Routes>
+    </BrowserRouter>
+
   );
 }
 
