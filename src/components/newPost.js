@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react"
 import styled from "styled-components"
-
+import noUser from '../assets/image/noUser.jpg'
 function getheader() {
     const header = {
       "Content-Type": "application/json",
@@ -10,7 +10,7 @@ function getheader() {
     return header;
   }
 
-export default function NewPostCard ({timeline}) {
+export default function NewPostCard ({timeline, userImage}) {
     const [loading, setLoading] = useState(false)
     const [post, setPost] = useState({
         url: "",
@@ -39,7 +39,7 @@ export default function NewPostCard ({timeline}) {
 
     return (
         <Card>
-            <Img src="https://www.petz.com.br/blog/wp-content/uploads/2021/11/enxoval-para-gato-Copia.jpg" alt="user icon"/>
+            <Img src={userImage ? userImage : noUser} alt="user icon"/>
             <div className="div">
                 <Text>What are you going to share today?</Text>
                 <Forms onSubmit={postar}>
@@ -69,6 +69,7 @@ const Card = styled.div`
     border-radius: 16px;
     background-color: #FFF;
     box-sizing: border-box;
+    margin-bottom: 10px;
 
     display: flex;
     

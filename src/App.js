@@ -3,18 +3,17 @@ import GlobalStyle from "./assets/GlobalStyle";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Timeline from "./pages/Timeline";
-
+import TimelineHashtag from "./pages/HashtagPage";
 
 function App() {
-  console.log("teste")
   return (
     <BrowserRouter>
       <GlobalStyle />
       <Routes>
         <Route path="/" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/timeline" element={<Timeline />} />
-       
+        <Route path="/timeline" element={<Timeline/>}/>
+        <Route path="/hashtag/:hashtag" element={<TimelineHashtag/>}/>
       </Routes>
     </BrowserRouter>
   );
