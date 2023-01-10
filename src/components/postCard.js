@@ -53,6 +53,7 @@ export default function PostCard({ data, timeline, user, setUserSelected }) {
       const url = `${process.env.REACT_APP_URL_API}/user/${idUser}`;
       await axios.get(url, { headers: header }).then((response) => {
         setUserSelected(response.data);
+        navigate(`/user/${idUser}`);
       });
     } catch (error) {}
   }
