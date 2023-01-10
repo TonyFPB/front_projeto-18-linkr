@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import NewPostCard from "../components/newPost.js";
-import PostCard from "../components/postCard.js";
+import PostCard from "../components/post card/postCard.js";
 
 function getheader() {
   const header = {
