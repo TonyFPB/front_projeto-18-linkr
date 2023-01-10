@@ -116,6 +116,8 @@ const Name = styled.p`
   letter-spacing: 0em;
   text-align: left;
   color: #ffffff;
+
+  cursor: pointer;
 `;
 const Message = styled.p`
   font-family: Lato;
