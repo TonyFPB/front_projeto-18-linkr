@@ -22,7 +22,7 @@ export default function Header(props) {
 
       <StyledImageDiv onClick={setHide}>
         {hide ? <AiOutlineDown /> : <AiOutlineUp />}
-        <img src={userImage ? userImage : noUser} />
+        <img src={userImage ? userImage : noUser} alt=""/>
       </StyledImageDiv>
     </StyledHeader>
   );
