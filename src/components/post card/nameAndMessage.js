@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { ReactTagify } from "react-tagify";
 import { FaPencilAlt } from "react-icons/fa";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import Delete from "./delete";
 import { useNavigate } from "react-router-dom";
@@ -62,6 +62,8 @@ export default function NameAndMessage({ data, setUserSelected, timeline }) {
       });
     }
   }
+
+  useEffect(()=>setMsg(message),[message]) 
 
   return (
     <>
