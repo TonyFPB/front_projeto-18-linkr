@@ -3,7 +3,7 @@ import { StyledSearchTimeline, StyledTimeline } from "../assets/TimelineStyles";
 import { Overlay } from "../assets/HeaderStyles";
 import { AiOutlineSearch } from "react-icons/ai";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import UserSearch from "../components/UserSearch";
 import styled from "styled-components";
 
@@ -15,13 +15,15 @@ import Swal from "sweetalert2";
 import { PopUp } from "../assets/SignStyles";
 
 import Trending from "../components/Trending/Trending";
+import UserFeedContainer from "../components/UserFeed";
 
-export default function Timeline() {
+export default function UserPage() {
   const [hide, setHide] = useState(true);
   const [userImage, setUserImage] = useState("");
   const navigate = useNavigate();
-  const [userSelected, setUserSelected] = useState(null);
+  const [userSelected, setUserSelected] = useState({});
   const swal = withReactContent(Swal);
+  const {id} = useParams()
   function logOut() {
     localStorage.removeItem("token");
     navigate("/");
@@ -35,8 +37,9 @@ export default function Timeline() {
     const promisse = axios.get(url, config);
     promisse
       .then((res) => {
+        console.log(res.data)
         setUserImage(res.data.image);
-        //navigate("/timeline");
+        //navigate(`/user/${id}`);
       })
       .catch((err) => {
         // swal.fire({
@@ -49,7 +52,6 @@ export default function Timeline() {
         // navigate("/")
       });
   }, []);
-
   return (
     <>
       <Header
@@ -70,7 +72,7 @@ export default function Timeline() {
           </Overlay>
         )}
         <ContainerTrendsFeed>
-          <FeedContainer
+          <UserFeedContainer
             userImage={userImage}
             setUserSelected={setUserSelected}
             user={userSelected}

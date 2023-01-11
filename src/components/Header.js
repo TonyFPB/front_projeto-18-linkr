@@ -17,7 +17,7 @@ export default function Header(props) {
 
   return (
     <StyledHeader>
-      <p onClick={()=> { setUserSelected(null); navigate('/timeline') }  }>linkr</p>
+      <p onClick={()=> { setUserSelected(null); navigate('/timeline')}  }>linkr</p>
 
       <SearchArea>
         <UserSearch mobile={false} setUserSelected={props.setUserSelected} />
