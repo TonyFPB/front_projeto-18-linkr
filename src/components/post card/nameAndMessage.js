@@ -34,7 +34,7 @@ export default function NameAndMessage({ data, setUserSelected, timeline }) {
       await axios.get(url, { headers: header }).then((response) => {
         setUserSelected(response.data);
       });
-    } catch (error) {}
+    } catch (error) {console.log(error)}
   }
 
   function toUpdate(e) {
@@ -68,7 +68,7 @@ export default function NameAndMessage({ data, setUserSelected, timeline }) {
   return (
     <>
       <Top>
-        <Name onClick={() => searchPeopleByid(post_user_id)}>{name}</Name>
+        <Name onClick={() => navigate(`/user/${post_user_id}`)}>{name}</Name>
         {owner ? (
           <div>
             <FaPencilAlt

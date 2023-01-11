@@ -18,14 +18,6 @@ export default function FeedContainer({ setUserSelected, userImage, user }) {
 
   let id = 0;
 
-  if (user === null) {
-    id = 0;
-  } else {
-    if (Object.keys(user).length !== 0) {
-      id = user.user.id;
-    }
-  }
-
   function timeline() {
     const header = getheader();
     const config = { headers: header };
