@@ -10,11 +10,14 @@ import UserSearch from "./UserSearch";
 import styled from "styled-components";
 //{/* Maris */}
 import noUser from '../assets/image/noUser.jpg'
+import { useNavigate } from "react-router-dom";
 export default function Header(props) {
   const { setHide, hide, userImage,userSelected,setUserSelected} = props;
+  const navigate = useNavigate();
+
   return (
     <StyledHeader>
-      <p onClick={()=>setUserSelected(null)}>linkr</p>
+      <p onClick={()=> { setUserSelected(null); navigate('/timeline') }  }>linkr</p>
 
       <SearchArea>
         <UserSearch mobile={false} setUserSelected={props.setUserSelected} />
@@ -22,7 +25,7 @@ export default function Header(props) {
 
       <StyledImageDiv onClick={setHide}>
         {hide ? <AiOutlineDown /> : <AiOutlineUp />}
-        <img src={userImage ? userImage : noUser} />
+        <img src={userImage ? userImage : noUser} alt=""/>
       </StyledImageDiv>
     </StyledHeader>
   );

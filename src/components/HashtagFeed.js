@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import NewPostCard from "./newPost.js";
-import PostCard from "./postCard";
+import PostCard from "./post card/postCard";
 import Trending from "./Trending/Trending.js";
 
 function getheader() {
