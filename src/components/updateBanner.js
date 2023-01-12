@@ -1,0 +1,32 @@
+import styled from "styled-components";
+
+export default function UpdateBanner({ updates }) {
+  return (
+    <Banner>
+      <p>12 new posts, load more!</p>
+    </Banner>
+  );
+}
+
+const Banner = styled.div`
+  height: 61px;
+  width: 611px;
+  border-radius: 16px;
+  background-color: #1877f2;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  p {
+    font-family: Lato;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #ffffff;
+
+    display: block;
+  }
+`;

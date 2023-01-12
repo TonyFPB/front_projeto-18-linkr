@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   FormsSign,
@@ -20,6 +20,7 @@ export default function SignIn() {
   const swal = withReactContent(Swal);
 
   function errors(error) {
+    console.log(error)
     if (error.status === 401) {
       swal.fire({
         icon: "error",
@@ -48,6 +49,7 @@ export default function SignIn() {
       const url = `${process.env.REACT_APP_URL_API}/signin`;
       const body = { email, password };
       const promisse = axios.post(url, body);
+
       promisse
         .then((res) => {
           setLoading(false);
@@ -55,11 +57,13 @@ export default function SignIn() {
           navigate("/timeline");
         })
         .catch((err) => {
+          console.log(err)
           errors(err.response);
           setLoading(false);
         });
     }
   }
+
   return (
     <SignStyled>
       <LeftSide>

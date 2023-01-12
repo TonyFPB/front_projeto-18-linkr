@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import GlobalStyle from "./assets/GlobalStyle";
+import UserContext from "./contexts/UserContext";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Timeline from "./pages/Timeline";
@@ -8,7 +10,10 @@ import UserPage from "./pages/UserPage";
 import { UserImageProvider } from "./contexts/image.context";
 
 function App() {
+  const [user, setUser] = useState(undefined);
+
   return (
+
     <UserImageProvider>
       <BrowserRouter>
         <GlobalStyle />
@@ -21,6 +26,7 @@ function App() {
         </Routes>
       </BrowserRouter>
     </UserImageProvider>
+
   );
 }
 
