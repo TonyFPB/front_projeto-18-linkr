@@ -3,6 +3,7 @@ import { useState } from "react"
 import styled from "styled-components"
 import Swal from "sweetalert2";
 import noUser from '../assets/image/noUser.jpg'
+import { useUserImageProvider } from "../contexts/image.context";
 function getheader() {
     const header = {
       "Content-Type": "application/json",
@@ -11,12 +12,14 @@ function getheader() {
     return header;
   }
 
-export default function NewPostCard ({timeline, userImage}) {
+export default function NewPostCard ({timeline}) {
     const [loading, setLoading] = useState(false)
     const [post, setPost] = useState({
         url: "",
         message: ""
     })
+    const [erro, setErro] = useState("")
+    const {userImage} =useUserImageProvider()
 
     function postar (event) {
         event.preventDefault()

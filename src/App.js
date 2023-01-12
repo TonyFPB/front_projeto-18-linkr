@@ -7,21 +7,25 @@ import SignUp from "./pages/SignUp";
 import Timeline from "./pages/Timeline";
 import TimelineHashtag from "./pages/HashtagPage";
 import UserPage from "./pages/UserPage";
+import { UserImageProvider } from "./contexts/image.context";
 
 function App() {
   const [user, setUser] = useState(undefined);
 
   return (
-   <BrowserRouter>
-      <GlobalStyle />
-      <Routes>
-        <Route path="/" element={<SignIn />} />
-        <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/timeline" element={<Timeline/>}/>
-        <Route path="/user/:id" element={<UserPage/>}/>
-        <Route path="/hashtag/:hashtag" element={<TimelineHashtag/>}/>
-      </Routes>
-    </BrowserRouter>
+
+    <UserImageProvider>
+      <BrowserRouter>
+        <GlobalStyle />
+        <Routes>
+          <Route path="/" element={<SignIn />} />
+          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/timeline" element={<Timeline />} />
+          <Route path="/user/:id" element={<UserPage />} />
+          <Route path="/hashtag/:hashtag" element={<TimelineHashtag />} />
+        </Routes>
+      </BrowserRouter>
+    </UserImageProvider>
 
   );
 }

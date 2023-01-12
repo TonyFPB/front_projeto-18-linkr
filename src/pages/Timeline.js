@@ -9,46 +9,19 @@ import styled from "styled-components";
 
 import FeedContainer from "../components/feedConatiner";
 
-import axios from "axios";
-import withReactContent from "sweetalert2-react-content";
-import Swal from "sweetalert2";
-import { PopUp } from "../assets/SignStyles";
-
 import Trending from "../components/Trending/Trending";
+import { useUserImageProvider } from "../contexts/image.context";
 
 export default function Timeline() {
   const [hide, setHide] = useState(true);
-  const [userImage, setUserImage] = useState("");
   const navigate = useNavigate();
   const [userSelected, setUserSelected] = useState(null);
-  const swal = withReactContent(Swal);
+  const {userImage} = useUserImageProvider()
+
   function logOut() {
     localStorage.removeItem("token");
     navigate("/");
   }
-
-  useEffect(() => {
-    const config = {
-      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-    };
-    const url = `${process.env.REACT_APP_URL_API}/user`;
-    const promisse = axios.get(url, config);
-    promisse
-      .then((res) => {
-        setUserImage(res.data.image);
-        //navigate("/timeline");
-      })
-      .catch((err) => {
-        // swal.fire({
-        //   icon: "error",
-        //   title: <PopUp>You are no longer logged in. Back to the sign in page.</PopUp>,
-        //   background: "#333333 ",
-        //   confirmButtonColor: "red",
-        //   confirmButtonText: <PopUp>OK</PopUp>,
-        // });
-        // navigate("/")
-      });
-  }, []);
 
   return (
     <>
@@ -56,7 +29,6 @@ export default function Timeline() {
         setHide={() => setHide(!hide)}
         hide={hide}
         setUserSelected={setUserSelected}
-        userImage={userImage}
         userSelected={userSelected}
       />
       <StyledTimeline>
@@ -71,7 +43,6 @@ export default function Timeline() {
         )}
         <ContainerTrendsFeed>
           <FeedContainer
-            userImage={userImage}
             setUserSelected={setUserSelected}
             user={userSelected}
           />

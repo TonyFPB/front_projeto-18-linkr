@@ -14,7 +14,7 @@ function getheader() {
   return header;
 }
 
-export default function FeedContainer({ setUserSelected, userImage, user }) {
+export default function FeedContainer({ setUserSelected, user }) {
   const [data, setData] = useState(undefined);
   const [erro, setErro] = useState(undefined);
   const [last, setLast] = useState(undefined);
@@ -68,8 +68,9 @@ export default function FeedContainer({ setUserSelected, userImage, user }) {
           "timeline"
         )}
       </Title>
-      {id === 0 && <NewPostCard userImage={userImage} timeline={timeline} />}
+      {id === 0 && <NewPostCard timeline={timeline} />}
       <UpdateBanner/>
+
       <Container>
         {data ? (
           data.length === 0 ? (
