@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { ReactTagify } from "react-tagify";
 import { FaPencilAlt } from "react-icons/fa";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import Delete from "./delete";
 import { useNavigate } from "react-router-dom";
@@ -34,7 +34,7 @@ export default function NameAndMessage({ data, setUserSelected, timeline }) {
       await axios.get(url, { headers: header }).then((response) => {
         setUserSelected(response.data);
       });
-    } catch (error) {}
+    } catch (error) {console.log(error)}
   }
 
   function toUpdate(e) {
@@ -63,10 +63,12 @@ export default function NameAndMessage({ data, setUserSelected, timeline }) {
     }
   }
 
+  useEffect(()=>setMsg(message),[message]) 
+
   return (
     <>
       <Top>
-        <Name onClick={() => searchPeopleByid(post_user_id)}>{name}</Name>
+        <Name onClick={() => navigate(`/user/${post_user_id}`)}>{name}</Name>
         {owner ? (
           <div>
             <FaPencilAlt

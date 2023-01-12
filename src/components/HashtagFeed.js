@@ -43,7 +43,7 @@ export default function FeedContainer({ setUserSelected }) {
             data.map((data) => (
               <PostCard
                 data={data}
-                key={data.id}
+                //key={data.id}
                 timeline={timeline}
                 setUserSelected={setUserSelected}
               />
