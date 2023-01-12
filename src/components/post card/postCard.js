@@ -2,29 +2,59 @@ import styled from "styled-components";
 import UrlContainer from "./url";
 import NameAndMessage from "./nameAndMessage";
 import Like from "./like";
+import { BiRepost } from "react-icons/bi";
 
 export default function PostCard({ data, timeline, user, setUserSelected }) {
-  const { post_id, image, url, metadata } = data;
+  const { repost, repost_name, post_id, image, url, metadata } = data;
 
   return (
-    <Card>
-      <Left>
-        <Img src={image} alt="user icon" />
-        <div>
-          <Like id={post_id} />
-        </div>
-        
-      </Left>
+    <>
+      {repost ? (
+        <BorderCard>
+          <div className="head">
+            <BiRepost size={30} color="#FFFFFF" />
+            <p className="p">
+              Re-posted by <strong>{repost_name}</strong>
+            </p>
+          </div>
+          <Card>
+            <Left>
+              <Img src={image} alt="user icon" />
+              <div>
+                <Like id={post_id} />
+              </div>
+            </Left>
 
-      <div className="div">
-        <NameAndMessage
-          data={data}
-          timeline={timeline}
-          setUserSelected={setUserSelected}
-        />
-        <UrlContainer metadata={metadata} url={url} />
-      </div>
-    </Card>
+            <div className="div">
+              <NameAndMessage
+                data={data}
+                timeline={timeline}
+                setUserSelected={setUserSelected}
+              />
+              <UrlContainer metadata={metadata} url={url} />
+            </div>
+          </Card>
+        </BorderCard>
+      ) : (
+        <Card>
+          <Left>
+            <Img src={image} alt="user icon" />
+            <div>
+              <Like id={post_id} />
+            </div>
+          </Left>
+
+          <div className="div">
+            <NameAndMessage
+              data={data}
+              timeline={timeline}
+              setUserSelected={setUserSelected}
+            />
+            <UrlContainer metadata={metadata} url={url} />
+          </div>
+        </Card>
+      )}
+    </>
   );
 }
 
@@ -62,4 +92,38 @@ const Left = styled.div`
 
   padding-top: 18px;
   padding-left: 18px;
+`;
+const BorderCard = styled.div`
+  width: 611px;
+  height: 310px;
+  border-radius: 16px;
+  background-color: #1e1e1e;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .head {
+    height: 33px;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    padding-left: 13px;
+  }
+
+  .p {
+    font-family: Lato;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 13px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #FFFFFF;
+  }
+  strong {
+    font-weight: 700;
+  }
 `;
