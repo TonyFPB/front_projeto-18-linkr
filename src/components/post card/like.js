@@ -1,6 +1,6 @@
 import { BsFillHeartFill } from "react-icons/bs";
 import { BsHeart } from "react-icons/bs";
-import { useState, useContext, useEffect } from "react";
+import { useState, useEffect } from "react";
 // import  {TooltipWrapper} from "react-TooltipWrapper";
 import axios from "axios";
 import styled from "styled-components";
@@ -13,7 +13,7 @@ function getheader() {
     return header;
   }
 
-export default function Button({ id }) {
+export default function Like ({ id }) {
   const [like, setLike] = useState(true);
 
   const header = getheader();
@@ -24,7 +24,7 @@ export default function Button({ id }) {
       .get(`${process.env.REACT_APP_URL_API}/likes/${id}`, config)
       .then((res) => {
         // TooltipWrapper.rebuild();
-        console.log(res.data);
+        // console.log(res.data);
       })
       .catch(erro => console.log(erro.response.data))
   }
@@ -51,7 +51,7 @@ export default function Button({ id }) {
   }
 
   return (
-    <Container>
+    <>
       {like ? (
         <BsFillHeartFill onClick={likeAndDislikePost} 
         color="#AC0000"
@@ -63,8 +63,6 @@ export default function Button({ id }) {
         size={20}
         />
       )}
-    </Container>
+    </>
   );
 }
-
-const Container = styled.div``;

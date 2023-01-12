@@ -1,17 +1,20 @@
 import styled from "styled-components";
 import UrlContainer from "./url";
 import NameAndMessage from "./nameAndMessage";
-import Button from "./buttons";
+import Like from "./like";
 
 export default function PostCard({ data, timeline, user, setUserSelected }) {
-  const { id, image, url, metadata } = data;
+  const { post_id, image, url, metadata } = data;
 
   return (
     <Card>
-      <div className="left">
+      <Left>
         <Img src={image} alt="user icon" />
-        <Button id={id} />
-      </div>
+        <div>
+          <Like id={post_id} />
+        </div>
+        
+      </Left>
 
       <div className="div">
         <NameAndMessage
@@ -39,17 +42,6 @@ const Card = styled.div`
     height: 100%;
     padding: 15px;
   }
-
-  .left {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-
-    padding-top: 18px;
-    padding-left: 18px;
-  }
-
   .modal {
     height: 262px;
     width: 597px;
@@ -61,4 +53,13 @@ const Img = styled.img`
   width: 50px;
   height: 50px;
   border-radius: 100%;
+`;
+const Left = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+
+  padding-top: 18px;
+  padding-left: 18px;
 `;

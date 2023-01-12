@@ -34,7 +34,7 @@ export default function NewPostCard ({timeline, userImage}) {
             url: "",
             message: ""
         })})
-        promisse.catch((erro) => {setLoading(false); Swal.fire("Ops :/", "Something went wrong, try again!", "error");})
+        promisse.catch(() => {setLoading(false); Swal.fire("Ops :/", "Something went wrong, try again!", "error");})
     }
 
     return (

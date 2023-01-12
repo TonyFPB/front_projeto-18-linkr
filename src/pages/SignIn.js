@@ -11,7 +11,6 @@ import {
 import { ThreeDots } from "react-loader-spinner";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import UserContext from "../contexts/UserContext";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
@@ -19,9 +18,9 @@ export default function SignIn() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const swal = withReactContent(Swal);
-  const { setUser } = useContext(UserContext);
 
   function errors(error) {
+    console.log(error)
     if (error.status === 401) {
       swal.fire({
         icon: "error",
@@ -55,10 +54,10 @@ export default function SignIn() {
         .then((res) => {
           setLoading(false);
           localStorage.setItem("token", res.data.token);
-          setUser(res.data.token);
           navigate("/timeline");
         })
         .catch((err) => {
+          console.log(err)
           errors(err.response);
           setLoading(false);
         });
