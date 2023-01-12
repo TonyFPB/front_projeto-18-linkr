@@ -49,12 +49,12 @@ export default function FeedContainer({ setUserSelected, userImage, user }) {
   useInterval(() => {
     const header = getheader();
     const config = { headers: header };
-    const url = `${process.env.REACT_APP_URL_API}/new`
+    const url = `${process.env.REACT_APP_URL_API}/new`;
 
-    const promisse = axios.post(url, {"last_update": last}, config)
-    promisse.then((res) => setUpdates(res.data.num))
-    promisse.catch((erro) => console.log(erro.response.data))
-  }, 15000)
+    const promisse = axios.post(url, { last_update: last }, config);
+    promisse.then((res) => setUpdates(res.data.num));
+    promisse.catch((erro) => console.log(erro.response.data));
+  }, 15000);
 
   return (
     <Feed>
@@ -68,8 +68,8 @@ export default function FeedContainer({ setUserSelected, userImage, user }) {
           "timeline"
         )}
       </Title>
-      {id === 0 && <NewPostCard userImage={userImage} timeline={timeline} />}
-      <UpdateBanner/>
+      {id === 0 && <NewPostCard userImage={userImage} timeline={timeline} setUpdates={setUpdates}/>}
+      {updates ? <UpdateBanner updates={updates} timeline={timeline} /> : <></>}
       <Container>
         {data ? (
           data.length === 0 ? (
