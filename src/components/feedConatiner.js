@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import NewPostCard from "./newPost.js";
 import PostCard from "./post card/postCard";
+import useInterval from "use-interval";
+import UpdateBanner from "./updateBanner.js";
 
 function getheader() {
   const header = {
@@ -12,10 +14,11 @@ function getheader() {
   return header;
 }
 
-export default function FeedContainer({ setUserSelected, userImage, user }) {
+export default function FeedContainer({ setUserSelected, user }) {
   const [data, setData] = useState(undefined);
   const [erro, setErro] = useState(undefined);
-
+  const [last, setLast] = useState(undefined);
+  const [updates, setUpdates] = useState(undefined);
   let id = 0;
 
   function timeline() {
@@ -26,18 +29,32 @@ export default function FeedContainer({ setUserSelected, userImage, user }) {
     if (id > 0) {
       url = `${process.env.REACT_APP_URL_API}/user/${id}`;
       const promisse = axios.get(url, config);
-      promisse.then((res) => setData(res.data.posts));
+      promisse.then((res) => {
+        setData(res.data.posts);
+      });
       promisse.catch((erro) => setErro(erro.response.data));
     } else {
-      url = `${process.env.REACT_APP_URL_API}/posts`;
+      url = `${process.env.REACT_APP_URL_API}/feed`;
       const promisse = axios.get(url, config);
-      promisse.then((res) => setData(res.data));
+      promisse.then((res) => {
+        setData(res.data.posts);
+        setLast(res.data.last_update);
+      });
       promisse.catch((erro) => setErro(erro.response.data));
     }
   }
-
   // useEffect(timeline, []);
   useEffect(timeline, [id]);
+
+  useInterval(() => {
+    const header = getheader();
+    const config = { headers: header };
+    const url = `${process.env.REACT_APP_URL_API}/new`
+
+    const promisse = axios.post(url, {"last_update": last}, config)
+    promisse.then((res) => setUpdates(res.data.num))
+    promisse.catch((erro) => console.log(erro.response.data))
+  }, 15000)
 
   return (
     <Feed>
@@ -51,7 +68,9 @@ export default function FeedContainer({ setUserSelected, userImage, user }) {
           "timeline"
         )}
       </Title>
-      {id === 0 && <NewPostCard userImage={userImage} timeline={timeline} />}
+      {id === 0 && <NewPostCard timeline={timeline} />}
+      <UpdateBanner/>
+
       <Container>
         {data ? (
           data.length === 0 ? (

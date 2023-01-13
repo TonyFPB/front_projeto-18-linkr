@@ -1,7 +1,9 @@
 import axios from "axios";
 import { useState } from "react"
 import styled from "styled-components"
+import Swal from "sweetalert2";
 import noUser from '../assets/image/noUser.jpg'
+import { useUserImageProvider } from "../contexts/image.context";
 function getheader() {
     const header = {
       "Content-Type": "application/json",
@@ -10,18 +12,19 @@ function getheader() {
     return header;
   }
 
-export default function NewPostCard ({timeline, userImage}) {
+export default function NewPostCard ({timeline}) {
     const [loading, setLoading] = useState(false)
     const [post, setPost] = useState({
         url: "",
         message: ""
     })
     const [erro, setErro] = useState("")
+    const {userImage} =useUserImageProvider()
 
     function postar (event) {
         event.preventDefault()
 
-        if (post.url === "") return setErro("Insert a valid url")
+        if (post.url === "") return 
 
         setLoading(true)
 
@@ -34,7 +37,7 @@ export default function NewPostCard ({timeline, userImage}) {
             url: "",
             message: ""
         })})
-        promisse.catch((erro) => {setLoading(false); setErro(erro.response.data + " Try again!")})
+        promisse.catch(() => {setLoading(false); Swal.fire("Ops :/", "Something went wrong, try again!", "error");})
     }
 
     return (
@@ -44,16 +47,15 @@ export default function NewPostCard ({timeline, userImage}) {
                 <Text>What are you going to share today?</Text>
                 <Forms onSubmit={postar}>
 
-                    <Input placeholder="http://..." border={erro.border}
+                    <Input placeholder="http://..." 
                     type="url" value={post.url} disabled={loading}
-                    onChange={(e) => {setPost({...post, url: e.target.value}); setErro(false)}}/>
+                    onChange={(e) => {setPost({...post, url: e.target.value})}}/>
 
-                    <Textarea placeholder="Awesome article about #JavaScript" border={erro.border}
+                    <Textarea placeholder="Awesome article about #JavaScript" 
                     type="text" value={post.message} disabled={loading}
                     onChange={(e) => setPost({...post, message: e.target.value})}/>
 
                     <div>
-                        <Error>{erro}</Error>
                         <Button disabled={loading}>{loading ? "Publishing..." : "Publish"}</Button>
                     </div>
 
@@ -176,13 +178,4 @@ const Button = styled.button`
     color: #fff;
 
     cursor: ${props => props.disabled ? "wait" : "pointer"};
-`
-const Error = styled.p`
-    font-family: Lato;
-    font-size: 20px;
-    font-weight: 300;
-    line-height: 24px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: rgba(255,0,0, 0.7);
 `
