@@ -19,8 +19,6 @@ export default function FeedContainer({ setUserSelected, userImage, user }) {
   const [userInfo, setUserInfo] = useState({});
   const {id} = useParams()
 
-  console.log(userInfo)
-
   function timeline() {
     const header = getheader();
     const config = { headers: header };

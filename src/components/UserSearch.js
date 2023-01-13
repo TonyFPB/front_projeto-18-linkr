@@ -140,7 +140,7 @@ export default function UserSearch({ mobile, setUserSelected }) {
                   return (
                     <li key={r.id} onClick={(e) => searchPeopleByid(r.id)}>
                       <img src={r.image} />
-                      {r.name}
+                      {r.origin === "follows" ? <><Name>{r.name} <span>• following</span></Name></> : r.name}
                     </li>
                   );
                 })}
@@ -154,7 +154,7 @@ export default function UserSearch({ mobile, setUserSelected }) {
                   return (
                     <li key={r.id} onClick={(e) => searchPeopleByid(r.id)}>
                       <img src={r.image} />
-                      {r.name}
+                      {r.origin === "follows" ? <><Name>{r.name} <span>• following</span></Name></> : r.name}
                     </li>
                   );
                 })}
@@ -253,3 +253,14 @@ const SearchResultsMobile = styled.div`
     display: block;
   }
 `;
+
+const Name = styled.span`
+    font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 23px;
+  span{
+    color: #C5C5C5;
+  }
+`
