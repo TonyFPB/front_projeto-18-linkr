@@ -16,10 +16,10 @@ function getheader() {
 }
 
 export default function NameAndMessage({ data, setUserSelected, timeline }) {
-  const { id, post_user_id, owner, name, message, url } = data;
+  const { id,feed_user, post_user, owner, name, message, url } = data;
   const navigate = useNavigate();
-
   const [edit, setEdit] = useState(false);
+  console.log(data)
   const [msg, setMsg] = useState(message);
   const [newMsg, setNewMsg] = useState(msg);
   const [editLoad, setEditLoad] = useState(false);
@@ -27,6 +27,12 @@ export default function NameAndMessage({ data, setUserSelected, timeline }) {
   const header = getheader();
   const config = { headers: header };
   const axiosUrl = `${process.env.REACT_APP_URL_API}/post/${id}`;
+
+  const tagStyle = {
+    color: "#fff",
+    cursor: "pointer",
+    fontWeight: 700
+  }
 
   async function searchPeopleByid(idUser) {
     try {
@@ -68,7 +74,7 @@ export default function NameAndMessage({ data, setUserSelected, timeline }) {
   return (
     <>
       <Top>
-        <Name onClick={() => navigate(`/user/${post_user_id}`)}>{name}</Name>
+        <Name onClick={() => navigate(`/user/${post_user}`)}>{name}</Name>
         {owner ? (
           <div>
             <FaPencilAlt
@@ -98,7 +104,7 @@ export default function NameAndMessage({ data, setUserSelected, timeline }) {
         />
       ) : (
         <ReactTagify
-          colors="#fff"
+          tagStyle={tagStyle}
           tagClicked={(hashtag) =>
             navigate(`/hashtag/${hashtag.replace("#", "")}`)
           }

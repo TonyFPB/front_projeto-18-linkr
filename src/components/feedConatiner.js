@@ -18,13 +18,21 @@ export default function FeedContainer({ setUserSelected, user }) {
   const [data, setData] = useState(undefined);
   const [erro, setErro] = useState(undefined);
   const [last, setLast] = useState(undefined);
+  const [haveFollows,setHaveFollows] = useState([]);
   const [updates, setUpdates] = useState(undefined);
+  console.log(data)
+
+  console.log(data)
   let id = 0;
 
   function timeline() {
     const header = getheader();
     const config = { headers: header };
     let url = "";
+
+    axios.get(`${process.env.REACT_APP_URL_API}/users/follows`,config)
+    .then(res=> setHaveFollows(res.data))
+    .catch(err=>console.log(err.response.data))
 
     if (id > 0) {
       url = `${process.env.REACT_APP_URL_API}/user/${id}`;
@@ -73,11 +81,15 @@ export default function FeedContainer({ setUserSelected, user }) {
 
       <Container>
         {data ? (
-          data.length === 0 ? (
+          data.length === 0 && haveFollows.length === 0 ? (
             <Message>
-              <p>There are no posts yet</p>
+              <p>You don't follow anyone yet. Search for new friends!</p>
             </Message>
-          ) : (
+          ) : data.length === 0 && haveFollows.length > 0 ? (
+            <Message>
+              <p>No posts found from your friends</p>
+            </Message>
+          ):(
             data.map((data) => (
               <PostCard
                 data={data}

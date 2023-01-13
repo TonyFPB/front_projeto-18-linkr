@@ -15,7 +15,7 @@ export default function Trendings({hashtag}){
 }
 
 const Hashtag = styled.div`
-    font-family: 'Oswald';
+    font-family: 'Lato';
     color: #fff;
     font-size: 19px;
     font-weight: 700;
