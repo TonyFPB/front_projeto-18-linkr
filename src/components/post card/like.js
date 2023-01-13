@@ -13,7 +13,7 @@ function getheader() {
     return header;
   }
 
-export default function Like ({ id }) {
+export default function Like ({ post_id }) {
   const [like, setLike] = useState(true);
 
   const header = getheader();
@@ -21,29 +21,29 @@ export default function Like ({ id }) {
 
   function getAllLikes() {
     axios
-      .get(`${process.env.REACT_APP_URL_API}/likes/${id}`, config)
+      .get(`${process.env.REACT_APP_URL_API}/likes/${post_id}`, config)
       .then((res) => {
         // TooltipWrapper.rebuild();
         // console.log(res.data);
       })
-      .catch(erro => console.log(erro.response.data))
+      // .catch(erro => console.log(erro.response.data))
   }
 
-  useEffect(() => getAllLikes(), []);
+  // useEffect(() => getAllLikes(), []);
 
   function likeAndDislikePost() {
     if (!like) {
       axios
         .post(
-          `${process.env.REACT_APP_URL_API}/likes/}${id}`,
-          { post_id: id },
+          `${process.env.REACT_APP_URL_API}/likes/}${post_id}`,
+          { post_id: post_id },
           config
         )
         .then(() => getAllLikes())
         .catch(() => "Ação indisponível, por favor tente novamente!");
     } else {
         axios
-        .delete(`${process.env.REACT_APP_URL_API}/likes/}${id}`, config)
+        .delete(`${process.env.REACT_APP_URL_API}/likes/}${post_id}`, config)
         .then(() => getAllLikes())
         .catch(() => "Ação indisponível, por favor tente novamente!");
     }

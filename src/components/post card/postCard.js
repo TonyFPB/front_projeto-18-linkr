@@ -3,6 +3,7 @@ import UrlContainer from "./url";
 import NameAndMessage from "./nameAndMessage";
 import Like from "./like";
 import { BiRepost } from "react-icons/bi";
+import Repost from "./repost";
 
 export default function PostCard({ data, timeline, user, setUserSelected }) {
   const { repost, repost_name, post_id, image, url, metadata } = data;
@@ -21,7 +22,8 @@ export default function PostCard({ data, timeline, user, setUserSelected }) {
             <Left>
               <Img src={image} alt="user icon" />
               <div>
-                <Like id={post_id} />
+                <Like post_id={post_id} />
+                <Repost post_id={post_id} />
               </div>
             </Left>
 
@@ -41,6 +43,7 @@ export default function PostCard({ data, timeline, user, setUserSelected }) {
             <Img src={image} alt="user icon" />
             <div>
               <Like id={post_id} />
+              <Repost post_id={post_id} />
             </div>
           </Left>
 

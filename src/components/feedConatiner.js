@@ -68,8 +68,8 @@ export default function FeedContainer({ setUserSelected, userImage, user }) {
           "timeline"
         )}
       </Title>
-      {id === 0 && <NewPostCard userImage={userImage} timeline={timeline} setUpdates={setUpdates}/>}
-      {updates ? <UpdateBanner updates={updates} timeline={timeline} /> : <></>}
+      {id === 0 && <NewPostCard userImage={userImage} timeline={timeline} />}
+      {updates ? <UpdateBanner updates={updates} timeline={timeline} setUpdates={setUpdates}/> : <></>}
       <Container>
         {data ? (
           data.length === 0 ? (
