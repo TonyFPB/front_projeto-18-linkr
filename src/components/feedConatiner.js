@@ -15,7 +15,7 @@ function getheader() {
   return header;
 }
 
-export default function FeedContainer({ setUserSelected, userImage, user }) {
+export default function FeedContainer({ setUserSelected, userImage}) {
   const [data, setData] = useState(undefined);
   const [erro, setErro] = useState(undefined);
   const [last, setLast] = useState(undefined);
@@ -86,7 +86,7 @@ export default function FeedContainer({ setUserSelected, userImage, user }) {
                     data={data}
                     key={data.id}
                     timeline={timeline}
-                    user={user === null ? {} : user.user}
+                    user={userImage === null ? {} : userImage}
                     setUserSelected={setUserSelected}
                   />
                 ))}
