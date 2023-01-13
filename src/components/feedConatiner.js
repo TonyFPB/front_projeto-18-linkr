@@ -21,20 +21,16 @@ export default function FeedContainer({ setUserSelected, userImage}) {
   const [last, setLast] = useState(undefined);
   const [haveFollows,setHaveFollows] = useState([]);
   const [updates, setUpdates] = useState(undefined);
-<<<<<<< HEAD
+
   const [page, setPage] = useState(0);
   const [more, setMore] = useState(true);
-=======
 
-  let id = 0;
->>>>>>> f0fdb9a9848e8067dfb1e33850b36c37fa95673b
 
   function timeline(num) {
     const header = getheader();
     const config = { headers: header };
     let url = "";
 
-<<<<<<< HEAD
     url = `${process.env.REACT_APP_URL_API}/more/${num}`;
     const promisse = axios.get(url, config);
     promisse.then((res) => {
@@ -44,28 +40,10 @@ export default function FeedContainer({ setUserSelected, userImage}) {
       setLast(res.data.last_update);
     });
     promisse.catch((erro) => setErro(erro.response.data));
-=======
+
     axios.get(`${process.env.REACT_APP_URL_API}/users/follows`,config)
     .then(res=> setHaveFollows(res.data))
     .catch(err=>console.log(err.response.data))
-
-    if (id > 0) {
-      url = `${process.env.REACT_APP_URL_API}/user/${id}`;
-      const promisse = axios.get(url, config);
-      promisse.then((res) => {
-        setData(res.data.posts);
-      });
-      promisse.catch((erro) => setErro(erro.response.data));
-    } else {
-      url = `${process.env.REACT_APP_URL_API}/feed`;
-      const promisse = axios.get(url, config);
-      promisse.then((res) => {
-        setData(res.data.posts);
-        setLast(res.data.last_update);
-      });
-      promisse.catch((erro) => setErro(erro.response.data));
-    }
->>>>>>> f0fdb9a9848e8067dfb1e33850b36c37fa95673b
   }
 
   useEffect(() => timeline(0), []);
@@ -101,7 +79,6 @@ export default function FeedContainer({ setUserSelected, userImage}) {
             <Message>
               <p>No posts found from your friends</p>
             </Message>
-<<<<<<< HEAD
           ) : (
             <InfiniteScroll
               pageStart={page}
@@ -126,18 +103,6 @@ export default function FeedContainer({ setUserSelected, userImage}) {
                 ))}
               </Container>
             </InfiniteScroll>
-=======
-          ):(
-            data.map((data) => (
-              <PostCard
-                data={data}
-                key={data.id}
-                timeline={timeline}
-                user={user === null ? {} : user.user}
-                setUserSelected={setUserSelected}
-              />
-            ))
->>>>>>> f0fdb9a9848e8067dfb1e33850b36c37fa95673b
           )
         ) : erro ? (
           <Message>
