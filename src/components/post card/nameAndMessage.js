@@ -28,6 +28,12 @@ export default function NameAndMessage({ data, setUserSelected, timeline }) {
   const config = { headers: header };
   const axiosUrl = `${process.env.REACT_APP_URL_API}/post/${id}`;
 
+  const tagStyle = {
+    color: "#fff",
+    cursor: "pointer",
+    "font-weight": 700
+  }
+
   async function searchPeopleByid(idUser) {
     try {
       const url = `${process.env.REACT_APP_URL_API}/user/${idUser}`;
@@ -98,7 +104,7 @@ export default function NameAndMessage({ data, setUserSelected, timeline }) {
         />
       ) : (
         <ReactTagify
-          colors="#fff"
+          tagStyle={tagStyle}
           tagClicked={(hashtag) =>
             navigate(`/hashtag/${hashtag.replace("#", "")}`)
           }
