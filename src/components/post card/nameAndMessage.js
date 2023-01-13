@@ -31,7 +31,7 @@ export default function NameAndMessage({ data, setUserSelected, timeline }) {
   const tagStyle = {
     color: "#fff",
     cursor: "pointer",
-    "font-weight": 700
+    fontWeight: 700
   }
 
   async function searchPeopleByid(idUser) {
