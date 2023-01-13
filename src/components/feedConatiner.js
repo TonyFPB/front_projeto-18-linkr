@@ -5,6 +5,7 @@ import NewPostCard from "./newPost.js";
 import PostCard from "./post card/postCard";
 import useInterval from "use-interval";
 import UpdateBanner from "./updateBanner.js";
+import InfiniteScroll from "react-infinite-scroller";
 
 function getheader() {
   const header = {
@@ -19,32 +20,26 @@ export default function FeedContainer({ setUserSelected, userImage, user }) {
   const [erro, setErro] = useState(undefined);
   const [last, setLast] = useState(undefined);
   const [updates, setUpdates] = useState(undefined);
-  let id = 0;
+  const [page, setPage] = useState(0);
+  const [more, setMore] = useState(true);
 
-  function timeline() {
+  function timeline(num) {
     const header = getheader();
     const config = { headers: header };
     let url = "";
 
-    if (id > 0) {
-      url = `${process.env.REACT_APP_URL_API}/user/${id}`;
-      const promisse = axios.get(url, config);
-      promisse.then((res) => {
-        setData(res.data.posts);
-      });
-      promisse.catch((erro) => setErro(erro.response.data));
-    } else {
-      url = `${process.env.REACT_APP_URL_API}/feed`;
-      const promisse = axios.get(url, config);
-      promisse.then((res) => {
-        setData(res.data.posts);
-        setLast(res.data.last_update);
-      });
-      promisse.catch((erro) => setErro(erro.response.data));
-    }
+    url = `${process.env.REACT_APP_URL_API}/more/${num}`;
+    const promisse = axios.get(url, config);
+    promisse.then((res) => {
+      if (res.data.posts.length < 10)  setMore(false)
+      setPage(num + 1);
+      setData(res.data.posts);
+      setLast(res.data.last_update);
+    });
+    promisse.catch((erro) => setErro(erro.response.data));
   }
-  // useEffect(timeline, []);
-  useEffect(timeline, [id]);
+
+  useEffect(() => timeline(0), []);
 
   useInterval(() => {
     const header = getheader();
@@ -58,18 +53,15 @@ export default function FeedContainer({ setUserSelected, userImage, user }) {
 
   return (
     <Feed>
-      <Title>
-        {id > 0 ? (
-          <>
-            <img src={user.user.image} alt="" />
-            <span>{`${user.user.name}'s posts`}</span>
-          </>
-        ) : (
-          "timeline"
-        )}
-      </Title>
-      {id === 0 && <NewPostCard userImage={userImage} timeline={timeline} />}
-      {updates ? <UpdateBanner updates={updates} timeline={timeline} setUpdates={setUpdates}/> : <></>}
+        <Title>
+            timeline
+        </Title>
+        <NewPostCard
+          userImage={userImage}
+          timeline={timeline}
+          setUpdates={setUpdates}
+        />
+      {updates ? <UpdateBanner updates={updates} timeline={timeline} /> : <></>}
       <Container>
         {data ? (
           data.length === 0 ? (
@@ -77,15 +69,29 @@ export default function FeedContainer({ setUserSelected, userImage, user }) {
               <p>There are no posts yet</p>
             </Message>
           ) : (
-            data.map((data) => (
-              <PostCard
-                data={data}
-                key={data.id}
-                timeline={timeline}
-                user={user === null ? {} : user.user}
-                setUserSelected={setUserSelected}
-              />
-            ))
+            <InfiniteScroll
+              pageStart={page}
+              loadMore={() => timeline(page)}
+              hasMore={more}
+              threshold={270}
+              loader={
+                <Message>
+                  <p>Loading...</p>
+                </Message>
+              }
+            >
+              <Container>
+                {data.map((data) => (
+                  <PostCard
+                    data={data}
+                    key={data.id}
+                    timeline={timeline}
+                    user={user === null ? {} : user.user}
+                    setUserSelected={setUserSelected}
+                  />
+                ))}
+              </Container>
+            </InfiniteScroll>
           )
         ) : erro ? (
           <Message>
@@ -135,6 +141,7 @@ const Container = styled.div`
   flex-direction: column;
   gap: 15px;
 `;
+
 const Message = styled.div`
   width: 611px;
   padding-top: 50px;
