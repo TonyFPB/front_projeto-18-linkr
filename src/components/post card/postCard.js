@@ -2,6 +2,7 @@ import styled from "styled-components";
 import UrlContainer from "./url";
 import NameAndMessage from "./nameAndMessage";
 import Like from "./like";
+<<<<<<< HEAD
 import { BiRepost } from "react-icons/bi";
 import Repost from "./repost";
 
@@ -58,8 +59,47 @@ export default function PostCard({ data, timeline, user, setUserSelected }) {
         </Card>
       )}
     </>
+=======
+import Comments from "./Comments/comments";
+import BallonComment from "./Comments/ballonComment";
+import { useState } from "react";
+
+export default function PostCard({ data, timeline, user, setUserSelected }) {
+  const { post_id, image, url, metadata } = data;
+  const [visibleComments, setVisibleComments] = useState(false)
+  const [isCommentSend, setIsCommentSend] = useState(false)
+  return (
+    <BoxCard>
+      <Card>
+        <Left>
+          <Img src={image} alt="user icon" />
+          <div>
+            <Like id={post_id} />
+          </div>
+          <BallonComment visibleComments={visibleComments} isCommentSend={isCommentSend} setVisibleComments={setVisibleComments} post_id={post_id}/>
+        </Left>
+
+        <div className="div">
+          <NameAndMessage
+            data={data}
+            timeline={timeline}
+            setUserSelected={setUserSelected}
+          />
+          <UrlContainer metadata={metadata} url={url} />
+        </div>
+        
+      </Card>
+      {visibleComments && <Comments isCommentSend={isCommentSend} setIsCommentSend={setIsCommentSend} post_id={post_id} />}
+    </BoxCard>
+>>>>>>> f0fdb9a9848e8067dfb1e33850b36c37fa95673b
   );
 }
+
+const BoxCard = styled.div`
+  width: 611px;
+  border-radius: 16px;
+  background-color:#1E1E1E;
+`
 
 const Card = styled.div`
   height: 276px;
