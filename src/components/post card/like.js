@@ -24,7 +24,7 @@ export default function Like ({ post_id }) {
       .get(`${process.env.REACT_APP_URL_API}/likes/${post_id}`, config)
       .then((res) => {
         // TooltipWrapper.rebuild();
-        // console.log(res.data);
+        console.log(res.data);
       })
       // .catch(erro => console.log(erro.response.data))
   }
