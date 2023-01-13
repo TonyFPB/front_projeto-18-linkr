@@ -1,9 +1,18 @@
 import styled from "styled-components";
+import { TfiReload } from "react-icons/tfi";
 
-export default function UpdateBanner({ updates }) {
+export default function UpdateBanner({ updates, timeline, setUpdates }) {
   return (
-    <Banner>
-      <p>12 new posts, load more!</p>
+    <Banner
+      onClick={() => {
+        timeline();
+        setUpdates(0);
+      }}
+    >
+      <div>
+        <p>{updates} new posts, load more! </p>
+        <TfiReload color={"#ffffff"}/>
+      </div>
     </Banner>
   );
 }
@@ -17,6 +26,14 @@ const Banner = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  cursor: pointer;
+  
+  div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
 
   p {
     font-family: Lato;
