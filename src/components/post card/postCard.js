@@ -9,6 +9,7 @@ import { useState } from "react";
 export default function PostCard({ data, timeline, user, setUserSelected }) {
   const { post_id, image, url, metadata } = data;
   const [visibleComments, setVisibleComments] = useState(false)
+  const [isCommentSend, setIsCommentSend] = useState(false)
   return (
     <BoxCard>
       <Card>
@@ -17,7 +18,7 @@ export default function PostCard({ data, timeline, user, setUserSelected }) {
           <div>
             <Like id={post_id} />
           </div>
-          <BallonComment visibleComments={visibleComments} setVisibleComments={setVisibleComments} post_id={post_id}/>
+          <BallonComment visibleComments={visibleComments} isCommentSend={isCommentSend} setVisibleComments={setVisibleComments} post_id={post_id}/>
         </Left>
 
         <div className="div">
@@ -30,7 +31,7 @@ export default function PostCard({ data, timeline, user, setUserSelected }) {
         </div>
         
       </Card>
-      {visibleComments && <Comments post_id={post_id} />}
+      {visibleComments && <Comments isCommentSend={isCommentSend} setIsCommentSend={setIsCommentSend} post_id={post_id} />}
     </BoxCard>
   );
 }

@@ -1,10 +1,64 @@
 import styled from "styled-components"
 import { useUserImageProvider } from "../../../contexts/image.context"
 import { IoPaperPlaneOutline } from 'react-icons/io5'
+import axios from "axios";
+import withReactContent from "sweetalert2-react-content";
+import Swal from "sweetalert2";
+import { PopUp } from "../../../assets/SignStyles";
+import { useNavigate } from "react-router-dom";
 
 
-export default function InputComment({ inputComment, setInputComments }) {
+export default function InputComment({ post_id, inputComment, setInputComments, isCommentSend, setIsCommentSend }) {
     const { userImage } = useUserImageProvider()
+    const swal = withReactContent(Swal)
+    const navigate = useNavigate()
+
+    function erros(err) {
+        if (err.status === 404) {
+            swal.fire({
+                icon: "error",
+                title: <PopUp>{err.data.message}</PopUp>,
+                background: "#333333",
+                confirmButtonColor: "red",
+                confirmButtonText: <PopUp>OK</PopUp>,
+            });
+        } if (err.status === 401) {
+            swal.fire({
+                icon: "error",
+                title: <PopUp>You are no longer logged in. Back to the sign in page.</PopUp>,
+                background: "#333333",
+                confirmButtonColor: "red",
+                confirmButtonText: <PopUp>OK</PopUp>,
+            });
+            navigate('/')
+        } if (err.status === 422) {
+            swal.fire({
+                icon: "error",
+                title: <PopUp>{err.data.message[0]}</PopUp>,
+                background: "#333333",
+                confirmButtonColor: "red",
+                confirmButtonText: <PopUp>OK</PopUp>,
+            });
+        }
+    }
+
+    function sendComment() {
+        const config = {
+            headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        };
+        const body = { comment: inputComment }
+        const promisse = axios.post(`${process.env.REACT_APP_URL_API}/comments/${post_id}`, body,config)
+        promisse
+            .then(res => {
+                setIsCommentSend(!isCommentSend)
+                setInputComments('')
+            })
+            .catch(err => {
+                console.log(err.response)
+                erros(err.response)
+            })
+    }
+
     return (
         <StyledInputComment>
             <img src={userImage} />
@@ -13,7 +67,7 @@ export default function InputComment({ inputComment, setInputComments }) {
                 value={inputComment}
                 onChange={(e) => setInputComments(e.target.value)}
             />
-            <IoPaperPlaneOutline />
+            <IoPaperPlaneOutline onClick={sendComment} />
         </StyledInputComment>
     )
 }

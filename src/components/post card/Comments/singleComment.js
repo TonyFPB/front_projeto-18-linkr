@@ -14,7 +14,6 @@ export default function SingleComment({ comment }) {
                         :
                         ''
                     }
-
                 </Top>
                 <Bottom>
                     {text}
