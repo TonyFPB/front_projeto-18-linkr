@@ -23,8 +23,9 @@ export default function FeedContainer({ setUserSelected, userImage, user }) {
     const header = getheader();
     const config = { headers: header };
     const url = `${process.env.REACT_APP_URL_API}/user/${id}/posts`;
+    console.log(data)
     const promisse = axios.get(url, config);
-    promisse.then((res) => setData(res.data.posts));
+    promisse.then((res) => setData(res.data));
     promisse.catch((erro) => setErro(erro.response.data));
 
     axios.get(`${process.env.REACT_APP_URL_API}/user/${id}`, config)
@@ -55,7 +56,7 @@ export default function FeedContainer({ setUserSelected, userImage, user }) {
                 data={data}
                 key={data.id}
                 timeline={timeline}
-                user={user === null ? {} : user.user}
+                user={userInfo}
                 setUserSelected={setUserSelected}
               />
             ))
