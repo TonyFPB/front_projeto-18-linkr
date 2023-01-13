@@ -6,15 +6,19 @@ import styled from 'styled-components'
 export default function BallonComment({ post_id, isCommentSend, visibleComments, setVisibleComments }) {
     const [numberComments, setNumberComments] = useState(0)
     useEffect(() => {
+        setVisibleComments(false)
         const config = {
             headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         };
-        setInterval(() => {
+        const promisse = axios.get(`${process.env.REACT_APP_URL_API}/comments/amount/${post_id}`, config)
+            promisse.then(res => setNumberComments(res.data.ammount)).catch(err => console.log(err))
+        const i = setInterval(() => {
             const promisse = axios.get(`${process.env.REACT_APP_URL_API}/comments/amount/${post_id}`, config)
             promisse.then(res => setNumberComments(res.data.ammount)).catch(err => console.log(err))
         },9000)
+        return ()=> clearInterval(i)
 
-    }, [isCommentSend])
+    }, [isCommentSend, post_id])
     return (
         <StyledBallonComment>
             <AiOutlineComment size={"25px"} onClick={() => setVisibleComments(!visibleComments)} />

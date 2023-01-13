@@ -20,9 +20,7 @@ export default function FeedContainer({ setUserSelected, user }) {
   const [last, setLast] = useState(undefined);
   const [haveFollows,setHaveFollows] = useState([]);
   const [updates, setUpdates] = useState(undefined);
-  console.log(data)
 
-  console.log(data)
   let id = 0;
 
   function timeline() {

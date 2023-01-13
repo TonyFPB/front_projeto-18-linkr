@@ -19,7 +19,6 @@ export default function NameAndMessage({ data, setUserSelected, timeline }) {
   const { id,feed_user, post_user, owner, name, message, url } = data;
   const navigate = useNavigate();
   const [edit, setEdit] = useState(false);
-  console.log(data)
   const [msg, setMsg] = useState(message);
   const [newMsg, setNewMsg] = useState(msg);
   const [editLoad, setEditLoad] = useState(false);
