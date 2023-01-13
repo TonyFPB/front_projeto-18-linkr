@@ -23,7 +23,6 @@ export default function FeedContainer({ setUserSelected, userImage, user }) {
     const header = getheader();
     const config = { headers: header };
     const url = `${process.env.REACT_APP_URL_API}/user/${id}/posts`;
-    console.log(data)
     const promisse = axios.get(url, config);
     promisse.then((res) => setData(res.data));
     promisse.catch((erro) => setErro(erro.response.data));
