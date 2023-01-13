@@ -51,7 +51,7 @@ export default function Like ({ post_id }) {
   }
 
   return (
-    <>
+    <Div>
       {like ? (
         <BsFillHeartFill onClick={likeAndDislikePost} 
         color="#AC0000"
@@ -63,6 +63,31 @@ export default function Like ({ post_id }) {
         size={20}
         />
       )}
-    </>
+      <Text>{`likes`}</Text>
+    </Div>
   );
 }
+
+const Div = styled.div`
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+
+  .svg {
+    cursor: pointer;
+  }
+`;
+const Text = styled.p`
+  font-family: Lato;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 13px;
+  letter-spacing: 0em;
+  text-align: center;
+  color: #fff;
+
+  display: block;
+`;

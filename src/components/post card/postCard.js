@@ -26,7 +26,7 @@ export default function PostCard({ data, timeline, user, setUserSelected }) {
           <Card>
             <Left>
               <Img src={image} alt="user icon" />
-              <div>
+              <div className="left">
                 <Like id={post_id} />
                 <BallonComment
                   visibleComments={visibleComments}
@@ -52,7 +52,7 @@ export default function PostCard({ data, timeline, user, setUserSelected }) {
         <Card>
           <Left>
             <Img src={image} alt="user icon" />
-            <div>
+            <div className="left">
               <Like id={post_id} />
               <BallonComment
                 visibleComments={visibleComments}
@@ -109,12 +109,6 @@ const Card = styled.div`
     height: 262px;
     width: 597px;
     border-radius: 50px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    gap: 5px;
   }
 `;
 
@@ -131,6 +125,15 @@ const Left = styled.div`
 
   padding-top: 18px;
   padding-left: 18px;
+
+  .left {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 9px;
+  }
 `;
 const BorderCard = styled.div`
   width: 611px;
