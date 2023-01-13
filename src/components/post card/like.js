@@ -14,7 +14,7 @@ function getheader() {
   }
 
 export default function Like ({ post_id }) {
-  const [like, setLike] = useState(true);
+  const [like, setLike] = useState(false);
 
   const header = getheader();
   const config = { headers: header };

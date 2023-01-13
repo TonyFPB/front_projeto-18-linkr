@@ -109,6 +109,12 @@ const Card = styled.div`
     height: 262px;
     width: 597px;
     border-radius: 50px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 5px;
   }
 `;
 
