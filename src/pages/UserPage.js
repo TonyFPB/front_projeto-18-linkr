@@ -70,11 +70,12 @@ export default function UserPage() {
 
   useEffect(() => {
     const url = `${process.env.REACT_APP_URL_API}/user`;
+    setDisable(true)
     const promisse = axios.get(url, config);
     promisse
       .then((res) => {
         setUserImage(res.data.image);
-        setDisable(false)
+        
         //navigate(`/user/${id}`);
       })
       .catch((err) => {
@@ -90,9 +91,10 @@ export default function UserPage() {
       })
       
       axios.get(`${process.env.REACT_APP_URL_API}/user/${id}/follows`,config)
-      .then(res=> setFollow(res.data))
+      .then(res=> {setFollow(res.data) 
+      setDisable(false)})
       .catch(err=> console.log(err.response.data))
-  }, []);
+  }, [id]);
   return (
     <>
       <Header

@@ -29,7 +29,7 @@ export default function FeedContainer({ setUserSelected, userImage, user }) {
       promisse.then((res) => setData(res.data.posts));
       promisse.catch((erro) => setErro(erro.response.data));
     } else {
-      url = `${process.env.REACT_APP_URL_API}/post`;
+      url = `${process.env.REACT_APP_URL_API}/posts`;
       const promisse = axios.get(url, config);
       promisse.then((res) => setData(res.data));
       promisse.catch((erro) => setErro(erro.response.data));
