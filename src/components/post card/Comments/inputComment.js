@@ -1,17 +1,19 @@
 import styled from "styled-components"
 import { useUserImageProvider } from "../../../contexts/image.context"
-import {IoPaperPlaneOutline} from 'react-icons/io5'
+import { IoPaperPlaneOutline } from 'react-icons/io5'
 
 
-export default function InputComment() {
+export default function InputComment({ inputComment, setInputComments }) {
     const { userImage } = useUserImageProvider()
     return (
         <StyledInputComment>
             <img src={userImage} />
             <input
                 placeholder="write a comment..."
+                value={inputComment}
+                onChange={(e) => setInputComments(e.target.value)}
             />
-            <IoPaperPlaneOutline/>
+            <IoPaperPlaneOutline />
         </StyledInputComment>
     )
 }

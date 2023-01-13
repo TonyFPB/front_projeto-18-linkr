@@ -4,10 +4,11 @@ import NameAndMessage from "./nameAndMessage";
 import Like from "./like";
 import Comments from "./Comments/comments";
 import BallonComment from "./Comments/ballonComment";
+import { useState } from "react";
 
 export default function PostCard({ data, timeline, user, setUserSelected }) {
   const { post_id, image, url, metadata } = data;
-
+  const [visibleComments, setVisibleComments] = useState(false)
   return (
     <BoxCard>
       <Card>
@@ -16,7 +17,7 @@ export default function PostCard({ data, timeline, user, setUserSelected }) {
           <div>
             <Like id={post_id} />
           </div>
-          <BallonComment/>
+          <BallonComment visibleComments={visibleComments} setVisibleComments={setVisibleComments} post_id={post_id}/>
         </Left>
 
         <div className="div">
@@ -29,12 +30,13 @@ export default function PostCard({ data, timeline, user, setUserSelected }) {
         </div>
         
       </Card>
-      <Comments />
+      {visibleComments && <Comments post_id={post_id} />}
     </BoxCard>
   );
 }
 
 const BoxCard = styled.div`
+  width: 611px;
   border-radius: 16px;
   background-color:#1E1E1E;
 `

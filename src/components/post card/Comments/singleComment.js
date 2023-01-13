@@ -1,16 +1,23 @@
 import styled from "styled-components"
 
-export default function SingleComment() {
+export default function SingleComment({ comment }) {
+    const { isFollowing, isOwner, isYou, ownerComment, ownerImage, text } = comment
     return (
         <StyledComment>
-            <Left><img src="https://img.freepik.com/fotos-gratis/o-gato-vermelho-ou-branco-eu-no-estudio-branco_155003-13189.jpg?w=2000" /></Left>
+            <Left><img src={ownerImage} /></Left>
             <Right>
                 <Top>
-                    <Name>João Avatares</Name>
-                    <Infos>following post's author</Infos>
+                    <Name>{ownerComment}</Name>
+                    {isFollowing || isOwner || isYou
+                        ?
+                        <Infos>{isOwner && "Post's Author"} {isFollowing && "Following"} {isYou && "You"}</Infos>
+                        :
+                        ''
+                    }
+
                 </Top>
                 <Bottom>
-                    Adorei esse post, ajuda muito a usar Material UI com React!
+                    {text}
                 </Bottom>
             </Right>
         </StyledComment>
@@ -19,7 +26,6 @@ export default function SingleComment() {
 
 const StyledComment = styled.li`
     display: flex;
-
     padding: 13px 0 16px 0;
     border-bottom: 1px solid #353535;
     transform: rotate(-0.1deg);
@@ -57,19 +63,18 @@ const Infos = styled.li`
     font-size: 14px;
     line-height: 17px;
     color: #565656;
-    margin: 0 0 0 20px;
-
+    margin: 0 0 0 25px;
     list-style: disc;
-    ::marker{
-        
-    }
+    
 `
 
 const Bottom = styled.div`
+    width: 500px;
     font-family: 'Lato';
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
     line-height: 17px;
     color: #ACACAC;
+    word-wrap: break-word;
 `
